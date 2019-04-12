@@ -9,4 +9,7 @@ class User < ApplicationRecord
   has_many :post_attachments
   has_many :votes
   has_many :comments
+  validates :username, :email, :password, presence: true
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validates :password, length: { minimum: 6 }
 end

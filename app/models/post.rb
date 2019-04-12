@@ -7,4 +7,5 @@ class Post < ApplicationRecord
   has_many :post_attachments
   has_many :votes
   has_many :comments
+  validates :title, :description, presence: true
 end
