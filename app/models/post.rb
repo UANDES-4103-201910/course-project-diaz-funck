@@ -1,11 +1,11 @@
 class Post < ApplicationRecord
   belongs_to :user
-  belongs_to :location
-  has_many :post_follows
-  has_many :post_shares
-  has_many :post_reports
-  has_many :post_attachments
-  has_many :votes
-  has_many :comments
+  belongs_to :location, optional: true
+  has_many :post_follows, dependent: :destroy
+  has_many :post_shares, dependent: :destroy
+  has_many :post_reports, dependent: :destroy
+  has_many :post_attachments, dependent: :destroy
+  has_many :votes, dependent: :destroy
+  has_many :comments, dependent: :destroy
   validates :title, :description, presence: true
 end
