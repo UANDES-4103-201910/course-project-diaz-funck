@@ -1,24 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Summary of Implemented Features:
 
-Things you may want to cover:
+* Placeholder
 
-* Ruby version
+Summary of Pending Features
 
-* System dependencies
+* Placeholder
 
-* Configuration
+API Tests:
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Postman API Tests: https://www.getpostman.com/collections/86d1ba343030c7a3d8d9
