@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
   end
 
   def is_user_admin?
+    return true
+  end
+  
+  def is_user_super_admin?
     return false
   end
   

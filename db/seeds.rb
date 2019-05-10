@@ -46,7 +46,6 @@ BlacklistRecord.create( user_id: 3, blacklist_status_id: 1 )
 ## some dumpster records
 DumpsteredPost.create( post_id: 1 )
 DumpsteredPost.create( post_id: 2 )
-DumpsteredPost.create( post_id: 3 )
 
 # jointables
 Vote.create( user_id: 1, post_id: 1, up: true )

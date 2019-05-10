@@ -7,7 +7,13 @@
   <ul class="navbar-nav ml-md-auto">
     <a class="nav-item nav-link nav-element" href="#">New Complaint</a>
     <a class="nav-item nav-link nav-element" href="#">[Username]</a>
-    <button class="btn btn-outline-light mx-2" type="button">Administrator Tools</button>
+    <div class="btn-group" role="group">
+      <button id="adminDrop" type="button" class="btn btn-outline-light mx-2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administrator Tools</button>
+      <div class="dropdown-menu" aria-labelledby="adminDrop">
+        <a class="dropdown-item" href="admin_tools">User Administration</a>
+        <a class="dropdown-item" href="dumpster">Post Dumpster</a>
+      </div>
+    </div>
     <button class="btn btn-outline-light mx-2" type="button">Log Out</button>
   </ul>
 </nav>

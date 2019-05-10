@@ -1,0 +1,42 @@
+<% @right_side_bar = render :partial => "admin_tools/user_tools_bar" %>
+<div class="container h-100 mx-0">
+  <div class="table-responsive">
+    <table class="table table-bordered table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Select</th>
+          <th scope="col">Username</th>
+          <th scope="col">Email</th>
+          <th scope="col">Role</th>
+          <th scope="col">Country</th>
+          <th scope="col">Region</th>
+          <th scope="col">Status</th>
+          <th scope="col">Last Access</th>
+          <th scope="col" colspan="2">Edit/View</th>
+        </tr>
+      </thead>
+     
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1">
+              </div>
+            </td>
+            <td><%= user.username %></td>
+            <td><%= user.email %></td>
+            <td><%= user.role.role_name %></td>
+            <td><%= user.location.country %></td>
+            <td><%= user.location.region %></td>
+            <td>Normal</td>
+            <td>yyyy/mm/dd/hh:mm:ss</td>
+            <td><a class="btn btn-dark btn-sm" role="button" href="#">Edit</a></td>
+            <td><a class="btn btn-dark btn-sm" role="button" href="#">View</a></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
