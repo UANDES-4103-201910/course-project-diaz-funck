@@ -1,0 +1,20 @@
+<div class="container h-100">
+  <div class="row h-100 align-items-center justify-content-center">
+    <div class="col">
+      <ul class="list-unstyled">
+        <% @dumpster_records.each do |record| %>
+        <li class="my-1">
+          <div class="col border border-dark rounded p-2">
+            <div class="row p-2">
+              <h4>Reported <span><%= record.post.post_reports.count  %></span> times</h4>
+              <button type="button" class="btn btn-outline-dark ml-auto">Restore</button>
+            </div>
+            <%= render 'shared/post_list_element', :post => record.post  %>
+          </div>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
