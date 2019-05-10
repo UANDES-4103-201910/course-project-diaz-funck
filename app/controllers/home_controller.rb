@@ -2,6 +2,8 @@ class HomeController < ApplicationController
   def index
     if !is_user_logged_in?
       redirect_to guest_index_path
+    else
+      @posts = get_all_posts
     end
   end
   

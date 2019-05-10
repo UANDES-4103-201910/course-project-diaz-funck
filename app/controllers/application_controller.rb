@@ -19,4 +19,8 @@ class ApplicationController < ActionController::Base
   def is_user_admin?
     return false
   end
+  
+  def get_all_posts
+    return Post.all
+  end
 end

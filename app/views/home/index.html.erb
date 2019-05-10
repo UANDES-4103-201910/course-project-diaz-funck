@@ -2,8 +2,14 @@
 <% @right_side_bar = render :partial => "shared/my_complaints_bar" %>
 <div class="container h-100">
   <div class="row h-100 align-items-center justify-content-center">
-    <div class="col border border-dark rounded py-3 px-5">
-      <h1 class="app-title mb-5">GeoComplainer</h1>
+    <div class="col">
+      <ul class="list-unstyled">
+        <% @posts.each do |post| %>
+        <li class="my-1">
+          <%= render 'shared/post_list_element', :post => post  %>
+        </li>
+        <% end %>
+      </ul>
     </div>
   </div>
 </div>
