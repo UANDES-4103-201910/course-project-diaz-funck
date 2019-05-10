@@ -24,4 +24,8 @@ class HomeController < ApplicationController
       redirect_to root_path
     end
   end
+  
+  def legal
+  
+  end
 end

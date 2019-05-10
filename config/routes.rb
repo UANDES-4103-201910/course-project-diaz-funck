@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :users, :posts
   
   get 'guest_index', to: 'home#guest_index', as: :guest_index
+  get 'legal', to: 'home#legal', as: :legal
   get 'login', to: 'home#login', as: :login
   get 'register', to: 'home#register', as: :register
   
