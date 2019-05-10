@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CourseProjectDiazFunck</title>
+    <title>GeoComplainer</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,20 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div id="header">
+      <%= render_navbar %>
+    </div>
+    
+    <div class="container" id="site-body">
+      <div class="row justify-content-md-center">
+        <div class="col" id="left-side-bar"></div>
+      
+        <div class="col-6" id="main-content">
+          <%= yield %>
+        </div>
+      
+        <div class="col" id="right-side-bar"></div>
+      </div>
+    </div>
   </body>
 </html>
