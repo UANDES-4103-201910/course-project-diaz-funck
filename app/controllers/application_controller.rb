@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_user_logged_in?
-    return false
+    return true
   end
 
   def is_user_admin?

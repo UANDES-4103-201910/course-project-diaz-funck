@@ -14,15 +14,19 @@
       <%= render_navbar %>
     </div>
     
-    <div class="container h-100" id="site-body">
+    <div class="container-fluid h-100" id="site-body">
       <div class="row h-100 justify-content-md-center">
-        <div class="col-3" id="left-side-bar"></div>
+        <div class="col-3" id="left-side-bar">
+          <%= @left_side_bar %>
+        </div>
       
         <div class="col-6 h-100" id="main-content">
           <%= yield %>
         </div>
       
-        <div class="col-3" id="right-side-bar"></div>
+        <div class="col-3" id="right-side-bar">
+          <%= @right_side_bar %>
+        </div>
       </div>
     </div>
   </body>
