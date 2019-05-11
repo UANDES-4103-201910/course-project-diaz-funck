@@ -1,11 +1,42 @@
 <div class="container h-100">
   <div class="row align-items-center justify-content-center border border-dark rounded py-3">
-      <button type="button" class="btn btn-outline-dark">All</button>
-      <button type="button" class="btn btn-outline-dark">Created</button>
-      <button type="button" class="btn btn-outline-dark">Shared</button>
-      <button type="button" class="btn btn-outline-dark">Commented</button>
-      <button type="button" class="btn btn-outline-dark">Upvoted</button>
-      <button type="button" class="btn btn-outline-dark">Downvoted</button>
+      <button type="button" class="btn btn-outline-dark">
+        <%= link_to 'All' %>
+      </button>
+      <button type="button" class="btn btn-outline-dark">
+        <%= link_to 'Created' %>
+      </button>
+      <button type="button" class="btn btn-outline-dark">
+        <%= link_to 'Shared' %>
+      </button>
+      <button type="button" class="btn btn-outline-dark">
+        <%= link_to 'Commented' %>
+      </button>
+      <button type="button" class="btn btn-outline-dark">
+        <%= link_to 'Upvoted' %>
+      </button>
+      <button type="button" class="btn btn-outline-dark">
+        <%= link_to 'Downvoted' %>
+      </button>
+  </div>
+
+  <div class="container h-100">
+    <div class="row h-100 align-items-center justify-content-center">
+      <div class="col">
+        <ul class="list-unstyled">
+          <% @posts.each do |post| %>
+          <li class="my-1 py-3">
+            <div class="border border-dark rounded-top">
+              <h3 class="font-weight-bold text-center">
+                <%= history_action%>
+              </h3>
+            </div>
+            <%= render 'shared/post_list_element', :post => post  %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
 
 </div>

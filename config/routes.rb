@@ -13,6 +13,6 @@ Rails.application.routes.draw do
   get 'dumpster', to: 'admin_tools#dumpster', as: :dumpster
 
   get 'my_profile', to: 'profiles#my_profile', as: :my_profile
-  get 'search', to: 'searches#index', as: :search
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
