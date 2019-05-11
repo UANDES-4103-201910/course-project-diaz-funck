@@ -1,8 +1,9 @@
 <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">GeoComplainer</a>
+  <a class="navbar-brand" href="#" >GeoComplainer</a>
   <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search">
-      <button class="btn btn-outline-light mx-2" type="submit">Search</button>
+      <%= link_to "Search", search_path, :class => 'btn btn-outline-light mx-2 text-light'%>
+      <!-- <button class="btn btn-outline-light mx-2" type="submit">Search</button> -->
     </form>
   <ul class="navbar-nav ml-md-auto">
     <a class="nav-item nav-link nav-element" href="#">New Complaint</a>

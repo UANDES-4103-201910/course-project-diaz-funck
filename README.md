@@ -12,11 +12,17 @@ Summary of Implemented Features:
 
 * Legal page for displaying of the AUP and ToS.
 
+* search page for users and posts, wich the moment have to manually edited in SearchesCotroller to look the user search view.
+
+* profile page for actual user.
+
 Summary of Pending Features:
 
 * Working forms.
 
 * User session handling for displaying of user-specific content.
+
+* Post and comment pages.
 
 API Tests:
 
