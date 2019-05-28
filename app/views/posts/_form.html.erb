@@ -2,7 +2,6 @@
   <% if post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
       <ul>
       <% post.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -11,7 +10,43 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div>
+  <%= label_tag(:title, "Title") %>
+  </div>
+  <div class="rounded d-flex justify-content-center">
+  <%= form.text_field :title, size:"90%" %>
+  </div>
+  <div>
+    <%= label_tag(:description, "Description") %>
+  </div>
+  <div class="rounded d-flex justify-content-center">
+  <%= form.text_area :description, size: "100%xauto"%>
+  </div>
+  <div class="container py-2 ">
+    <div class="row py-1">
+      <div class="col">
+        <button type="button" class="btn btn-outline-dark">Add Picture</button>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-outline-dark">Add Attachment</button>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-outline-dark">Add Country</button>
+      </div>
+    </div>
+    <div class="row py-1">
+      <div class="col">
+        <button type="button" class="btn btn-outline-dark">Allow Comments</button>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-outline-dark">Add GPS location</button>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-outline-dark">Add City</button>
+      </div>
+    </div>
+  </div>
+  <div class="actions rounded d-flex justify-content-center py-2">
+    <%= form.submit%>
   </div>
 <% end %>
