@@ -1,9 +1,30 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<div class="container border border-dark rounded bg-light h-auto">
+  <div class="row py-3 px-3 justify-content-between">
+  <strong><%= @post.title %></strong>
+  <%= link_to 'Edit', edit_post_path(@post) %>
+  </div>
+  <div class="row border bg-white h-auto py-3 px-3">
+    <%= @post.description %>
+  </div>
+  <div class="row border bg-white h-10 py-3">
+    <div class="col mx-3">
+      <div class ="row justify-content-end">
+      <%= @post.location.region %>
+      </div>
+      <div class="row justify-content-end">
+      <%= @post.location.country %>
+      </div>
+    </div>
+  </div>
+  <div class="row px-3 py-3 justify-content-between">
+      <strong class="align-middle"><%= @post.votes.count().to_s + " votes" %></strong>
+      <button type="button" class="btn btn-dark">^ Upvote</button>
+      <button type="button" class="btn btn-dark">V Downvote</button>
+      <button type="button" class="btn btn-dark">Share</button>
+      <button type="button" class="btn btn-dark">Report</button>
+  </div>
+  <div class="row px-3 py-3 justify-content-between">
+    <!-- input to create a comment -->
+  </div>
+</div>
