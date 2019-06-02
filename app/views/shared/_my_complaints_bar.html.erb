@@ -17,9 +17,9 @@
         <div class="col">
           <h5>Followed Complaints</h5>
           <ul class="list-group list-group-flush">
-            <!-- pending: filter by the user's followe posts, for now this is done with all the post -->
-            <% @posts.each do |post| %>
-            <li class="text-primary"><%= link_to post.title, post, :class => "text-primary" %></li>
+            <% PostFollow.where('user_id == ?', current_user.id).each do |pf| %>
+              <% post = Post.find_by('id == ?', pf.post_id)%>
+              <li class="text-primary"><%= link_to post.title, post, :class => "text-primary" %></li>
             <% end %>
           </ul>
         </div>
