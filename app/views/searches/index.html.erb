@@ -1,5 +1,5 @@
 <% @left_side_bar = render :partial => "searches/search_post_filter_bar" %>
-<% if is_user_logged_in?%>
+<% if user_signed_in?%>
 <% @right_side_bar = render :partial => "shared/my_complaints_bar" %>
 <% end %>
 <%= render partial: "main_content"%>
