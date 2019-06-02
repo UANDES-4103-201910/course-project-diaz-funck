@@ -5,9 +5,7 @@
         <div class="col">
           <h5>My Complaints</h5>
           <ul class="list-group list-group-flush">
-            <!-- pending: filter by the user's posts, for now this is done with all the post -->
             <% Post.where('user_id == ?', current_user.id).all.each do |post|%>
-
             <li class="text-primary"><%= link_to post.title, post, :class => "text-primary" %></li>
             <% end %>
           </ul>

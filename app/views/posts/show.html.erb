@@ -19,12 +19,16 @@
   </div>
   <div class="row px-3 py-3 justify-content-between">
       <strong class="align-middle"><%= @post.votes.count().to_s + " votes" %></strong>
+      <% if user_signed_in?%>
       <button type="button" class="btn btn-dark">^ Upvote</button>
       <button type="button" class="btn btn-dark">V Downvote</button>
       <button type="button" class="btn btn-dark">Share</button>
       <button type="button" class="btn btn-dark">Report</button>
+      <% end %>
   </div>
-  <%= render 'new_comment', :post => @post %>
+  <% if user_signed_in?%>
+  <%= render 'new_comment', :post => @post, :user => current_user %>
+  <% end %>
 </div>
 <ul class="list-unstyled">
   <% @comments.each do |comment| %>
