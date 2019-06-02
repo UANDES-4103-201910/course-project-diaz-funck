@@ -24,7 +24,12 @@
       <button type="button" class="btn btn-dark">Share</button>
       <button type="button" class="btn btn-dark">Report</button>
   </div>
-  <div class="row px-3 py-3 justify-content-between">
-    <!-- input to create a comment -->
-  </div>
+  <%= render 'new_comment', :post => @post %>
 </div>
+<ul class="list-unstyled">
+  <% @comments.each do |comment| %>
+  <li class="my-1">
+    <%= render 'comment_list_element', :comment => comment  %>
+  </li>
+  <% end %>
+</ul>

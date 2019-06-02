@@ -1,0 +1,19 @@
+<div class="container p-2 border border-dark rounded">
+  <div class="row px-3">
+    <div class="col-9">
+      <%= comment.user.username %>
+    </div>
+    <div class="col-3 d-flex justify-content-between">
+      <%= time_ago_in_words(comment.created_at) + " ago"%>
+      <%= link_to('edit')%>
+    </div>
+  </div>
+  <div class="row px-3 py-1">
+    <div class="col-11 border border-dark py-1">
+      <%= comment.content%>
+    </div>
+    <div class="col-1">
+      <%= button_to("Reply", nil,:disabled => true)%>
+    </div>
+  </div>
+</div>
