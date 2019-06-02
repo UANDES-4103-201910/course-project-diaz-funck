@@ -1,7 +1,7 @@
 class SearchesController < ApplicationController
 
   def index
-    if params[:q]
+    if !params[:q]
       @posts = nil
     else
       @posts = Post.where('title LIKE ?', '%'+params[:q]+'%').all
