@@ -6,7 +6,7 @@
   <% end %>
   <ul class="navbar-nav ml-md-auto">
     <%= link_to "New Complaint", new_post_path, :class => 'nav-item nav-link nav-element'%>
-    <%= link_to "[Username]", my_profile, :class => 'nav-item nav-link nav-element'%>
+    <%= link_to current_user.username, my_profile, :class => 'nav-item nav-link nav-element'%>
     <div class="btn-group" role="group">
       <button id="adminDrop" type="button" class="btn btn-outline-light mx-2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administrator Tools</button>
       <div class="dropdown-menu" aria-labelledby="adminDrop">
@@ -14,6 +14,6 @@
         <a class="dropdown-item" href="dumpster">Post Dumpster</a>
       </div>
     </div>
-    <button class="btn btn-outline-light mx-2" type="button">Log Out</button>
+    <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'nav-item nav-link nav-element' %>
   </ul>
 </nav>
