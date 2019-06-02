@@ -1,0 +1,12 @@
+<div class="row py-3 justify-content-between border">
+    <div class="col-10">
+      <%= form_with(model: @comment) do |form| %>
+      <input type="hidden" name="comment[user_id]" value=<%= @post.user.id%>>
+      <input type="hidden" name="comment[post_id]" value=<%= @post.id%>>
+      <%= form.text_field :content, placeholder: 'comment', class: 'form-control' %>
+    </div>
+    <div class="col d-flex justify-content-end">
+      <%= form.submit('Submit',class: 'btn btn-primary')%>
+      <% end %>
+    </div>
+</div>

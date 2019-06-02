@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   get 'home/index'
   root "home#index"
 
-  resources :users, :posts
-
+  resources :users, :posts, :comments
+  
   get 'guest_index', to: 'home#guest_index', as: :guest_index
   get 'legal', to: 'home#legal', as: :legal
   get 'login', to: 'home#login', as: :login
@@ -14,6 +14,5 @@ Rails.application.routes.draw do
 
   get 'my_profile', to: 'profiles#my_profile', as: :my_profile
   get 'search', to: 'searches#index', as: :search
-
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
