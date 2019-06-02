@@ -5,9 +5,10 @@
         <div class="col">
           <h5>My Complaints</h5>
           <ul class="list-group list-group-flush">
-            <a href="#" class="list-group-item text-truncate">My Complaint Title</a>
-            <a href="#" class="list-group-item text-truncate">My Complaint Title</a>
-            <a href="#" class="list-group-item text-truncate">My Complaint Title</a>
+            <!-- pending: filter by the user's posts, for now this is done with all the post -->
+            <% @posts.each do |post| %>
+            <li class="text-primary"><%= link_to post.title, post, :class => "text-primary" %></li>
+            <% end %>
           </ul>
         </div>
       </div>
@@ -15,13 +16,13 @@
         <div class="col">
           <h5>Followed Complaints</h5>
           <ul class="list-group list-group-flush">
-            <a href="#" class="list-group-item text-truncate">Followed Complaint Title</a>
-            <a href="#" class="list-group-item text-truncate">Followed Complaint Title</a>
-            <a href="#" class="list-group-item text-truncate">Followed Complaint Title</a>
+            <!-- pending: filter by the user's followe posts, for now this is done with all the post -->
+            <% @posts.each do |post| %>
+            <li class="text-primary"><%= link_to post.title, post, :class => "text-primary" %></li>
+            <% end %>
           </ul>
         </div>
       </div>
     </div>
   </div>
 </div>
-

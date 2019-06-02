@@ -1,27 +1,11 @@
 class SearchesController < ApplicationController
 
   def index
-    @collection = get_all_posts
-  end
-
-  def posts
-    @collection = get_all_posts
-  end
-
-  def users
-    @collection = User.all
-  end
-
-  def by_username
-    @collection = User.all
-  end
-
-  def by_country
-    @collection = User.all
-  end
-
-  def by_city
-    @collection = User.all
+    if params[:q]
+      @posts = nil
+    else
+      @posts = Post.where('title LIKE ?', '%'+params[:q]+'%').all
+    end
   end
 
   def by_title

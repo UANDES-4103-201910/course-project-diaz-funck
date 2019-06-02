@@ -3,11 +3,10 @@
   <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search">
       <%= link_to "Search", search_path, :class => 'btn btn-outline-light mx-2 text-light'%>
-      <!-- <button class="btn btn-outline-light mx-2" type="submit">Search</button> -->
     </form>
   <ul class="navbar-nav ml-md-auto">
-    <a class="nav-item nav-link nav-element" href="posts/new">New Complaint</a>
-    <a class="nav-item nav-link nav-element" href="my_profile">[Username]</a>
+    <%= link_to "New Complaint", new_post_path, :class => 'nav-item nav-link nav-element'%>
+    <%= link_to "[Username]", my_profile, :class => 'nav-item nav-link nav-element'%>
     <button class="btn btn-outline-light mx-2" type="button">Log Out</button>
   </ul>
 </nav>

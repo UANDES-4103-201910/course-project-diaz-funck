@@ -13,17 +13,18 @@ class ApplicationController < ActionController::Base
   end
 
   def is_user_logged_in?
-    return true
+    return false
   end
+  helper_method :is_user_logged_in?
 
   def is_user_admin?
-    return true
+    return false
   end
-  
+
   def is_user_super_admin?
     return false
   end
-  
+
   def get_all_posts
     return Post.all
   end
