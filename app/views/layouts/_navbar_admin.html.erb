@@ -6,7 +6,7 @@
   <% end %>
   <ul class="navbar-nav ml-md-auto">
     <%= link_to "New Complaint", new_post_path, :class => 'nav-item nav-link nav-element'%>
-    <%= link_to current_user.username, my_profile, :class => 'nav-item nav-link nav-element'%>
+    <%= link_to current_user.username, my_profile_url, :class => 'nav-item nav-link nav-element'%>
     <div class="btn-group" role="group">
       <button id="adminDrop" type="button" class="btn btn-outline-light mx-2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administrator Tools</button>
       <div class="dropdown-menu" aria-labelledby="adminDrop">

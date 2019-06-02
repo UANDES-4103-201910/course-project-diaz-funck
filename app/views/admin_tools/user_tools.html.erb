@@ -28,8 +28,8 @@
             <td><%= user.username %></td>
             <td><%= user.email %></td>
             <td><%= user.role.role_name %></td>
-            <td><%= user.location.country %></td>
-            <td><%= user.location.region %></td>
+            <td><%= user.location.country if user.location != nil %></td>
+            <td><%= user.location.region if user.location != nil %></td>
             <td>Normal</td>
             <td>yyyy/mm/dd/hh:mm:ss</td>
             <td><a class="btn btn-dark btn-sm" role="button" href="#">Edit</a></td>
