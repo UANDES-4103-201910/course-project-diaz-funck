@@ -1,30 +1,38 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-  # GET /users
-  # GET /users.json
-  def index
-    @users = User.all
-  end
-
   # GET /users/1
   # GET /users/1.json
   def show
-    render json: @user
+    if !is_user_admin?
+      redirect_to root_path
+    end
   end
 
   # GET /users/new
   def new
+    if !is_user_admin?
+      redirect_to root_path
+    end
     @user = User.new
   end
 
   # GET /users/1/edit
   def edit
+    if !is_user_admin?
+      redirect_to root_path
+    end
+    if @user.is_super_admin? && !is_user_super_admin?
+      redirect_to root_path
+    end
   end
 
   # POST /users
   # POST /users.json
   def create
+    if !is_user_admin?
+      redirect_to root_path
+    end
     @user = User.new(user_params)
 
     respond_to do |format|
@@ -41,8 +49,20 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    if !is_user_admin?
+      redirect_to root_path
+    end
+    if @user.is_super_admin? && !is_user_super_admin?
+      redirect_to root_path
+    end
     respond_to do |format|
-      if @user.update(user_params)
+      new_params = {}
+      if user_params[:password].blank?
+        new_params = user_params.except(:password)
+      else
+        new_params = user_params
+      end
+      if @user.update(new_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -55,9 +75,15 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
+    if !is_user_admin?
+      redirect_to root_path
+    end
+    if @user.is_super_admin? && !is_user_super_admin?
+      redirect_to root_path
+    end
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to admin_tools_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

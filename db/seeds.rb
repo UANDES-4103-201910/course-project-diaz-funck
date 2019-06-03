@@ -16,14 +16,14 @@ Location.create([{ country: "Chile", region: "Santiago"}, {country: "Chile", reg
 
 # object
 ## some registered users
-User.create( role_id: 1, location_id: 1, geofence_id: nil, username: "cefunck", email: "registered_cefunck@miuandes.com", password: "password" )
+User.create( role_id: 1, location_id: 1, geofence_id: nil, username: "cefunck1", email: "registered_cefunck@miuandes.com", password: "password" )
 User.create( role_id: 1, location_id: 1, geofence_id: nil, username: "mfdiaz1", email: "registered_mfdiaz1@miuandes.com", password: "password" )
 ## some admin users
-User.create( role_id: 2, location_id: 1, geofence_id: 1, username: "cefunck", email: "admin_cefunck@miuandes.com", password: "password" )
-User.create( role_id: 2, location_id: 1, geofence_id: 1, username: "mfdiaz1", email: "admin_mfdiaz1@miuandes.com", password: "password" )
+User.create( role_id: 2, location_id: 1, geofence_id: 1, username: "cefunck2", email: "admin_cefunck@miuandes.com", password: "password" )
+User.create( role_id: 2, location_id: 1, geofence_id: 1, username: "mfdiaz2", email: "admin_mfdiaz1@miuandes.com", password: "password" )
 ## some super admin users
-User.create( role_id: 3, location_id: 1, geofence_id: 1, username: "cefunck", email: "super_admin_cefunck@miuandes.com", password: "password" )
-User.create( role_id: 3, location_id: 1, geofence_id: 1, username: "mfdiaz1", email: "super_admin_mfdiaz1@miuandes.com", password: "password" )
+User.create( role_id: 3, location_id: 1, geofence_id: 1, username: "cefunck3", email: "super_admin_cefunck@miuandes.com", password: "password" )
+User.create( role_id: 3, location_id: 1, geofence_id: 1, username: "mfdiaz3", email: "super_admin_mfdiaz1@miuandes.com", password: "password" )
 ## some user user profiles
 UserProfile.create( user_id: 1, picture_path: "path_to_the_picture_in_server", biography: "biography content" )
 UserProfile.create( user_id: 2, picture_path: "path_to_the_picture_in_server", biography: "biography content" )

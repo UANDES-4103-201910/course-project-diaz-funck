@@ -13,17 +13,21 @@
 
   <div class="field">
     <%= form.label :role_id %>
-    <%= form.text_field :role_id %>
+    <% if is_user_super_admin? %>
+      <%= form.collection_select :role_id, Role.all, :id, :role_name %>
+    <% else %>
+      <%= form.collection_select :role_id, Role.where("id < 3"), :id, :role_name %>
+    <% end %>
   </div>
 
   <div class="field">
     <%= form.label :location_id %>
-    <%= form.text_field :location_id %>
+    <%= form.collection_select :location_id, Location.all, :id, :country_region, :include_blank => 'None' %>
   </div>
 
   <div class="field">
     <%= form.label :geofence_id %>
-    <%= form.text_field :geofence_id %>
+    <%= form.collection_select :geofence_id, Geofence.all, :id, :name, :include_blank => 'None' %>
   </div>
 
   <div class="field">
