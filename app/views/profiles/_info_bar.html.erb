@@ -3,7 +3,15 @@
     <div class="col border border-dark rounded text-center py-3 mx-4">
       <div class="row my-3">
         <div class="col">
-          <h3><%= user.username %></h3>
+          <%if user_signed_in?%>
+            <% if user.id == current_user.id %>
+            <form action=<%= profile_update_path(user.id)%> method="post" id="profile-form">
+              <input type="text" name="username" form="profile-form" value=<%= user.username%>>
+            </form>
+            <% else %>
+              <h3><%= user.username %></h3>
+            <% end %>
+          <% end %>
         </div>
       </div>
       <div class="row my-3">
@@ -18,9 +26,15 @@
       </div>
       <div class="row my-3">
         <div class="col">
-          <div class="col border rounded py-3 px-5">
-            <%= user.user_profile.biography %>
-          </div>
+          <%if user_signed_in?%>
+            <% if user.id == current_user.id %>
+              <textarea form="profile-form" name="biography"><%= user.user_profile.biography%></textarea>
+            <% else %>
+            <div class="col border rounded py-3 px-5">
+              <%= user.user_profile.biography %>
+            </div>
+            <% end %>
+          <% end %>
         </div>
       </div>
       <div class="row my-3">
@@ -31,9 +45,23 @@
             </div>
             <div class="col-sm">
               <ul class="list-group list-group-flush">
-                <a href="#" class="list-group-item">(Click to edit)</a>
-                <a href="#" class="list-group-item">  <%= user.location.region %></a>
-                <a href="#" class="list-group-item"> <%= user.location.country %></a>
+                <%if user_signed_in?%>
+                  <% if user.id == current_user.id %>
+                  <select name="location_id" form="profile-form">
+                    <% Location.all.each do |location| %>
+                      <% if user.location.id == location.id %>
+                        <option form="profile-form" value=<%= location.id%> selected > <%= location.country%>, <%=location.region%> </option>
+                      <% else %>
+                        <option value=<%= location.id%>> <%= location.country%>, <%=location.region%> </option>
+                      <% end %>
+                    <% end %>
+                  </select>
+                    <input type="submit" value="update" form="profile-form">
+                  <% else %>
+                    <a href="#" class="list-group-item"> <%= user.location.region %></a>
+                    <a href="#" class="list-group-item"> <%= user.location.country %></a>
+                  <% end %>
+                <% end %>
               </ul>
             </div>
           </div>

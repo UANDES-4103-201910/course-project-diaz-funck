@@ -1,7 +1,6 @@
 class ProfilesController < ApplicationController
 
   def show
-    Rails.logger.debug(profile_params)
     @user = User.find_by('id == ?',profile_params[:id])
     @history_elements = created_posts(@user) | shared_posts(@user) | commented_posts(@user) | voted_posts(@user,true) | voted_posts(@user, false)
   end
@@ -10,10 +9,23 @@ class ProfilesController < ApplicationController
     @history_elements = created_posts(@user)
   end
 
+  def update
+    @user = User.find_by('id == ?',profile_params[:id])
+    @user.username = profile_params[:username]
+    @user.user_profile[:biography] = profile_params[:biography]
+    @user.location = Location.find_by('id == ?',profile_params[:location_id])
+    if @user.save
+      flash[:notice] = "Success"
+    else
+      flash[:alert] = "Error"
+    end
+    redirect_to profile_path(@user.id)
+  end
+
   private
 
     def profile_params
-      params.permit(:id, :history)
+      params.permit(:id, :history, :username, :biography, :location_id)
     end
 
     def commented_posts(user)
