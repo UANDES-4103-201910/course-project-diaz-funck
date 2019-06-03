@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :posts, :comments
 
+  resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
+
   get 'guest_index', to: 'home#guest_index', as: :guest_index
   get 'legal', to: 'home#legal', as: :legal
 

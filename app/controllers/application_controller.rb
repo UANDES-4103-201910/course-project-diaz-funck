@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
-  helper_method :render_navbar
+  helper_method :render_navbar, :is_user_admin?, :is_user_super_admin?
 
   def render_navbar
     if is_user_admin?
@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   def is_user_admin?
     if current_user != nil
-      return current_user.role.id == 2
+      return current_user.role.id == 2 || current_user.role.id == 3
     end
     return false
   end
