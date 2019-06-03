@@ -20,3 +20,5 @@ Summary of Pending Features:
 * File upload.
 
 * User and post search.
+
+* User Blacklist and Post Dumpster
