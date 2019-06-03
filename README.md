@@ -2,28 +2,21 @@
 
 Summary of Implemented Features:
 
-* General site layout which includes a header navbar, space for side bars to the left and right, and the main content in the middle. The options presented by the navbar vary according to user privileges, which for the moment have to be manually edited in the ApplicationController.
+* User signup, login and logout, with the option of using Google Authentication.
 
-* Home page for guests and registered users. The registered user home page is dynamically loaded with, for now, every post in the database.
+* Password recovery system.
 
-* Administration page which includes the user administration tool and the post dumpster. Users and posts are dynamically loaded, but no interaction is possible yet.
+* Different access privileges based on user roles.
 
-* Signup and Login pages with placeholder forms.
+* Administrator tool for user administration. New users can be created, and existing users can be edited or deleted. Super administrators can only be edited by other super administrators.
 
-* Legal page for displaying of the AUP and ToS.
+* User profiles with editable user information and collection of posts by the user.
 
-* search page for users and posts, wich the moment have to manually edited in SearchesCotroller to look the user search view.
+* Users can create posts, as well as comment on them. Posts can be upvoted or downvoted by users.
 
-* profile page for actual user.
 
 Summary of Pending Features:
 
-* Working forms.
+* File upload.
 
-* User session handling for displaying of user-specific content.
-
-* Post and comment pages.
-
-API Tests:
-
-* Postman API Tests: https://www.getpostman.com/collections/86d1ba343030c7a3d8d9
+* User and post search.
