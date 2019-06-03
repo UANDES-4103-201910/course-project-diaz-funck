@@ -2,9 +2,17 @@
   <div class="row border border-dark rounded">
     <div class="col-2 py-2">
       <div class="col text-center">
-        <button type="button" class="btn btn-dark">^</button>
-        <p class="h4"><%= post.votes.count %></p>
-        <button type="button" class="btn btn-dark">v</button>
+        <% if post.upvoted_by_user(current_user.id) %>
+          <a type="button" class="btn btn-success">^</a>
+        <% else %>
+          <a type="button" class="btn btn-dark" href=<%= upvote_path({id: post.id}) %>>^</a>
+        <% end %>
+        <p class="h4"><%= post.score %></p>
+        <% if post.downvoted_by_user(current_user.id) %>
+          <a type="button" class="btn btn-success">v</a>
+        <% else %>
+          <a type="button" class="btn btn-dark" href=<%= downvote_path({id: post.id}) %>>v</a>
+        <% end %>
       </div>
     </div>
     <div class="col-10">

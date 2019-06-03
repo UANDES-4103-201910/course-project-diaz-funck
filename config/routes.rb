@@ -3,12 +3,17 @@ Rails.application.routes.draw do
   as :user do
     get 'users', to: 'devise/registrations#new', as: :users
   end
+  as :post do
+    get 'posts', to: 'posts#new', as: :posts
+    get 'upvote', to: 'posts#upvote', as: :upvote
+    get 'downvote', to: 'posts#downvote', as: :downvote
+  end
   get 'home/index'
   root "home#index"
 
-  resources :posts, :comments
+  resources :comments
 
-  resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
+  resources :users, :posts, only: [:new, :create, :show, :edit, :update, :destroy]
 
   get 'guest_index', to: 'home#guest_index', as: :guest_index
   get 'legal', to: 'home#legal', as: :legal
