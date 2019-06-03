@@ -1,37 +1,37 @@
 <div class="container h-100">
   <div class="row align-items-center justify-content-center border border-dark rounded py-3">
-      <button type="button" class="btn btn-outline-dark">
-        <%= link_to 'All' %>
-      </button>
-      <button type="button" class="btn btn-outline-dark">
-        <%= link_to 'Created' %>
-      </button>
-      <button type="button" class="btn btn-outline-dark">
-        <%= link_to 'Shared' %>
-      </button>
-      <button type="button" class="btn btn-outline-dark">
-        <%= link_to 'Commented' %>
-      </button>
-      <button type="button" class="btn btn-outline-dark">
-        <%= link_to 'Upvoted' %>
-      </button>
-      <button type="button" class="btn btn-outline-dark">
-        <%= link_to 'Downvoted' %>
-      </button>
+    <%= button_to "All", profile_path(@user.id), method: 'get', class: "btn btn-outline-dark" %>
+    <%= button_to "Created", profile_created_path(@user.id), method: 'get', class: "btn btn-outline-dark" %>
+    <%= form_tag(profile_path(@user.id), method: "get") do %>
+      <%= hidden_field_tag(:history, 'shared') %>
+      <%= submit_tag("Shared", class: "btn btn-outline-dark") %>
+    <% end %>
+    <%= form_tag(profile_path(@user.id), method: "get") do %>
+      <%= hidden_field_tag(:history, 'commented') %>
+      <%= submit_tag("Commented", class: "btn btn-outline-dark") %>
+    <% end %>
+    <%= form_tag(profile_path(@user.id), method: "get") do %>
+      <%= hidden_field_tag(:history, 'upvoted') %>
+      <%= submit_tag("Upvoted", class: "btn btn-outline-dark") %>
+    <% end %>
+    <%= form_tag(profile_path(@user.id), method: "get") do %>
+      <%= hidden_field_tag(:history, 'downvoted') %>
+      <%= submit_tag("Downvoted", class: "btn btn-outline-dark") %>
+    <% end %>
   </div>
 
   <div class="container h-100">
     <div class="row h-100 align-items-center justify-content-center">
       <div class="col">
         <ul class="list-unstyled">
-          <% @posts.each do |post| %>
+          <% @history_elements.each do |element| %>
           <li class="my-1 py-3">
             <div class="border border-dark rounded-top">
               <h3 class="font-weight-bold text-center">
-                <%= history_action%>
+                <%= element[1] %>
               </h3>
             </div>
-            <%= render 'shared/post_list_element', :post => post  %>
+            <%= render 'shared/post_list_element', :post => element[0]  %>
           </li>
           <% end %>
         </ul>

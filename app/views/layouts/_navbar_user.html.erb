@@ -6,7 +6,7 @@
   <% end %>
   <ul class="navbar-nav ml-md-auto">
     <%= link_to "New Complaint", new_post_path, :class => 'nav-item nav-link nav-element'%>
-    <%= link_to current_user.username, my_profile_url, :class => 'nav-item nav-link nav-element'%>
+    <%= link_to current_user.username, profile_path(current_user.id), :class => 'nav-item nav-link nav-element'%>
     <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'nav-item nav-link nav-element' %>
   </ul>
 </nav>

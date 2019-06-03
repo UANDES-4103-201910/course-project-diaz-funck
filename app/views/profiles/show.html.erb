@@ -1,0 +1,5 @@
+<% @left_side_bar = render :partial => 'profiles/info_bar', locals: {user: @user} %>
+<% if user_signed_in?%>
+  <% @right_side_bar = render :partial => "shared/my_complaints_bar" %>
+<% end %>
+<%= render partial: "main_content"%>

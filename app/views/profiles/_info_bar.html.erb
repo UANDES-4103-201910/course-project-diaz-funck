@@ -3,12 +3,12 @@
     <div class="col border border-dark rounded text-center py-3 mx-4">
       <div class="row my-3">
         <div class="col">
-          <h3>Username</h3>
+          <h3><%= user.username %></h3>
         </div>
       </div>
       <div class="row my-3">
         <div class="col">
-          <h3>Userrole</h3>
+          <h3><%= user.role.role_name %></h3>
         </div>
       </div>
       <div class="row my-3">
@@ -19,7 +19,7 @@
       <div class="row my-3">
         <div class="col">
           <div class="col border rounded py-3 px-5">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id elementum sem. Aenean eu dictum sem, et ornare orci. Nam sit amet magna vitae est porttitor volutpat placerat in ex. Nulla quis libero odio. Pellentesque ultricies ac augue id mattis. Ut tempor ut neque vel tincidunt. Etiam mauris justo, sagittis et fermentum id, pellentesque pellentesque orci. Aenean felis magna, pulvinar eu interdum vel, lacinia in ante.
+            <%= user.user_profile.biography %>
           </div>
         </div>
       </div>
@@ -32,8 +32,8 @@
             <div class="col-sm">
               <ul class="list-group list-group-flush">
                 <a href="#" class="list-group-item">(Click to edit)</a>
-                <a href="#" class="list-group-item">City</a>
-                <a href="#" class="list-group-item">Country</a>
+                <a href="#" class="list-group-item">  <%= user.location.region %></a>
+                <a href="#" class="list-group-item"> <%= user.location.country %></a>
               </ul>
             </div>
           </div>

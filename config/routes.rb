@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   get 'admin_tools', to: 'admin_tools#user_tools', as: :admin_tools
   get 'dumpster', to: 'admin_tools#dumpster', as: :dumpster
 
-  get 'my_profile', to: 'profiles#my_profile', as: :my_profile
+  get 'profile/:id', to: 'profiles#show', defaults: { history: 'all' }, as: :profile
+  get 'profile/:id', to: 'profiles#show_created', as: :profile_created
   get 'search', to: 'searches#index', as: :search
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
