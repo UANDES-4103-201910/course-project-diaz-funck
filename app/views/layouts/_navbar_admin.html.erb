@@ -1,5 +1,5 @@
 <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-primary">
-  <a class="navbar-brand" href="#" >GeoComplainer</a>
+  <%= link_to "GeoComplainer", root_path, :class => 'navbar-brand'%>
   <%= form_tag(search_path, method: "get", :class => "form-inline my-2 my-lg-0") do %>
     <%= text_field_tag(:q) %>
     <%= submit_tag("Search", :class => 'btn btn-outline-light mx-2 text-light') %>
