@@ -14,11 +14,26 @@ Summary of Implemented Features:
 
 * Users can create posts, as well as comment on them. Posts can be upvoted or downvoted by users.
 
+* View user profiles
+
+* Edit user profile
+
+* View posts without file attachments
+
+* Edit posts
+
+* View author profile in comments
+
+* Search posts by substring in post title
+
+
 
 Summary of Pending Features:
 
 * File upload.
 
-* User and post search.
+* User search.
 
-* User Blacklist and Post Dumpster
+* Delete posts
+
+* Mark post as inappropiate (report)
