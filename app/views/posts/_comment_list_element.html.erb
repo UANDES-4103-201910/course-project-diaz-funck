@@ -1,7 +1,7 @@
 <div class="container p-2 border border-dark rounded">
   <div class="row px-3">
     <div class="col-9">
-      <%= comment.user.username %>
+      <%= link_to(comment.user.username, profile_path(comment.user.id))%>
     </div>
     <div class="col-3 d-flex justify-content-between">
       <%= time_ago_in_words(comment.created_at) + " ago"%>
