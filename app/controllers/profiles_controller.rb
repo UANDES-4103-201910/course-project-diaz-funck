@@ -2,11 +2,20 @@ class ProfilesController < ApplicationController
 
   def show
     @user = User.find_by('id == ?',profile_params[:id])
-    @history_elements = created_posts(@user) | shared_posts(@user) | commented_posts(@user) | voted_posts(@user,true) | voted_posts(@user, false)
-  end
-
-  def show_created
-    @history_elements = created_posts(@user)
+    case params[:history]
+    when 'created'
+      @history_elements = created_posts(@user)
+    when 'shared'
+      @history_elements = shared_posts(@user)
+    when 'commented'
+      @history_elements = commented_posts(@user)
+    when 'upvoted'
+      @history_elements = voted_posts(@user,true)
+    when 'downvoted'
+      @history_elements = voted_posts(@user,false)
+    else
+      @history_elements = created_posts(@user) | shared_posts(@user) | commented_posts(@user) | voted_posts(@user,true) | voted_posts(@user, false)
+    end
   end
 
   def update

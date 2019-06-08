@@ -1,7 +1,13 @@
 <div class="container h-100">
   <div class="row align-items-center justify-content-center border border-dark rounded py-3">
-    <%= button_to "All", profile_path(@user.id), method: 'get', class: "btn btn-outline-dark" %>
-    <%= button_to "Created", profile_created_path(@user.id), method: 'get', class: "btn btn-outline-dark" %>
+    <%= form_tag(profile_path(@user.id), method: "get") do %>
+      <%= hidden_field_tag(:history, 'all') %>
+      <%= submit_tag("All", class: "btn btn-outline-dark") %>
+    <% end %>
+    <%= form_tag(profile_path(@user.id), method: "get") do %>
+      <%= hidden_field_tag(:history, 'created') %>
+      <%= submit_tag("Created", class: "btn btn-outline-dark") %>
+    <% end %>
     <%= form_tag(profile_path(@user.id), method: "get") do %>
       <%= hidden_field_tag(:history, 'shared') %>
       <%= submit_tag("Shared", class: "btn btn-outline-dark") %>

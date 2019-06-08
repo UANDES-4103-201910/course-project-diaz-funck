@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get 'admin_tools', to: 'admin_tools#user_tools', as: :admin_tools
   get 'dumpster', to: 'admin_tools#dumpster', as: :dumpster
 
-  get 'profile/:id', to: 'profiles#show', defaults: { history: 'all' }, as: :profile
+  get 'profile/:id', to: 'profiles#show', as: :profile
   post 'profile/:id', to: 'profiles#update', as: :profile_update
   get 'profile/:id', to: 'profiles#show_created', as: :profile_created
   get 'search', to: 'searches#index', as: :search
