@@ -5,8 +5,8 @@
         <div class="col">
           <h3>Search</h3>
           <div class="btn-group-vertical" role="group">
-            <button type="button" class="btn btn-outline-dark">Posts</button>
-            <button type="button" class="btn btn-outline-dark">Users</button>
+            <%= submit_tag("Posts", form: "search_form",:class => 'btn btn-outline-dark') %>
+            <%= submit_tag("Users", form: "search_form",:class => 'btn btn-outline-dark') %>
           </div>
         </div>
       </div>
@@ -14,9 +14,9 @@
         <div class="col">
           <h3>By</h3>
           <div class="btn-group-vertical" role="group">
-            <button type="button" class="btn btn-outline-dark">Title</button>
-            <button type="button" class="btn btn-outline-dark">Description</button>
-            <button type="button" class="btn btn-outline-dark">Author</button>
+            <%= submit_tag("Title", form: "search_form",:class => 'btn btn-outline-dark') %>
+            <%= submit_tag("Description", form: "search_form",:class => 'btn btn-outline-dark') %>
+            <%= submit_tag("Author", form: "search_form",:class => 'btn btn-outline-dark') %>
           </div>
         </div>
       </div>

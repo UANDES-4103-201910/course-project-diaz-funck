@@ -3,9 +3,9 @@
     <div class="row h-100 align-items-center justify-content-center">
       <div class="col">
         <ul class="list-unstyled">
-          <% if @posts != nil%>
-            <% if @posts.size != 0%>
-              <% @posts.each do |element| %>
+          <% if @collection[:content] != nil%>
+            <% if @collection[:content].size != 0%>
+              <% @collection[:content].each do |element| %>
               <li class="my-1 py-3">
                 <% if element.is_a?(Post)%>
                 <%= render 'shared/post_list_element', :post => element  %>
