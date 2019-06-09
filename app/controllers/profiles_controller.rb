@@ -2,6 +2,9 @@ class ProfilesController < ApplicationController
 
   def show
     @user = User.find_by('id == ?',profile_params[:id])
+    if @user.user_profile == nil
+      @user.create_user_profile
+    end
     case params[:history]
     when 'created'
       @history_elements = created_posts(@user)
@@ -22,6 +25,7 @@ class ProfilesController < ApplicationController
     @user = User.find_by('id == ?',profile_params[:id])
     @user.username = profile_params[:username]
     @user.user_profile[:biography] = profile_params[:biography]
+    @user.user_profile.image.attach(profile_params[:image])
     @user.location = Location.find_by('id == ?',profile_params[:location_id])
     if @user.save
       flash[:notice] = "Success"
@@ -34,7 +38,7 @@ class ProfilesController < ApplicationController
   private
 
     def profile_params
-      params.permit(:id, :history, :username, :biography, :location_id)
+      params.permit(:id, :history, :username, :biography, :location_id, :image)
     end
 
     def commented_posts(user)

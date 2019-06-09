@@ -68,27 +68,35 @@ class PostsController < ApplicationController
   end
 
   def upvote
-    vote = Vote.where(post_id: @post.id, user_id: current_user.id).first_or_create
-    respond_to do |format|
-      if vote.update(up: true)
-        format.html { redirect_to @post, notice: 'Post was successfully upvoted.' }
-        format.json { render :show, status: :created, location: @post }
-      else
-        format.html { redirect_to @post }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end  
+    if !user_signed_in?
+      redirect_to new_user_session_path
+    else
+      vote = Vote.where(post_id: @post.id, user_id: current_user.id).first_or_create
+      respond_to do |format|
+        if vote.update(up: true)
+          format.html { redirect_to @post, notice: 'Post was successfully upvoted.' }
+          format.json { render :show, status: :created, location: @post }
+        else
+          format.html { redirect_to @post }
+          format.json { render json: @post.errors, status: :unprocessable_entity }
+        end  
+      end
     end
   end
 
   def downvote
-    vote = Vote.where(post_id: @post.id, user_id: current_user.id).first_or_create
-    respond_to do |format|
-      if vote.update(up: false)
-        format.html { redirect_to @post, notice: 'Post was successfully downvoted.' }
-        format.json { render :show, status: :created, location: @post }
-      else
-        format.html { redirect_to @post }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+    if !user_signed_in?
+      redirect_to new_user_session_path
+    else
+      vote = Vote.where(post_id: @post.id, user_id: current_user.id).first_or_create
+      respond_to do |format|
+        if vote.update(up: false)
+          format.html { redirect_to @post, notice: 'Post was successfully downvoted.' }
+          format.json { render :show, status: :created, location: @post }
+        else
+          format.html { redirect_to @post }
+          format.json { render json: @post.errors, status: :unprocessable_entity }
+        end
       end
     end  
   end
@@ -101,6 +109,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:user_id, :location_id, :title, :description, :gps_coordinate, :resolved, :open)
+      params.require(:post).permit(:user_id, :location_id, :title, :description, :gps_coordinate, :resolved, :open, images: [])
     end
 end

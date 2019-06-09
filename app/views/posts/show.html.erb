@@ -1,37 +1,56 @@
 <div class="container border border-dark rounded bg-light h-auto">
   <div class="row py-3 px-3 justify-content-between">
-  <strong><%= @post.title %></strong>
-  <%= link_to 'Edit', edit_post_path(@post) %>
+    <div class="col">
+      <strong><%= @post.title %></strong>
+      <%= link_to 'Edit', edit_post_path(@post) %>
+    </div>
   </div>
   <div class="row border bg-white h-auto py-3 px-3">
-    <%= @post.description %>
+    <div class="col">
+      <%= @post.description %>
+    </div>
+  </div>
+  <div class="row border bg-white h-auto py-3 px-3">
+    <% @post.images.each do |image| %>
+      <div class="col">
+        <%= link_to image do %>
+          <%= image_tag image.variant(resize: '150x150') %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
   <div class="row border bg-white h-10 py-3">
     <div class="col mx-3">
       <div class ="row justify-content-end">
-      <%= @post.location.region if @post.location != nil %>
+        <div class="col">
+          <%= @post.location.region if @post.location != nil %>
+        </div>
       </div>
       <div class="row justify-content-end">
-      <%= @post.location.country if @post.location != nil %>
+        <div class="col">
+          <%= @post.location.country if @post.location != nil %>
+        </div>
       </div>
     </div>
   </div>
   <div class="row px-3 py-3 justify-content-between">
-      <strong class="align-middle"><%= @post.score.to_s() + " votes" %></strong>
-      <% if user_signed_in?%>
-        <% if @post.upvoted_by_user(current_user.id) %>
-          <a type="button" class="btn btn-success">^ Upvote</a>
-        <% else %>
-          <a type="button" class="btn btn-dark" href=<%= upvote_path({id: @post.id}) %>>^ Upvote</a>
+      <div class="col">
+        <strong class="align-middle"><%= @post.score.to_s() + " votes" %></strong>
+        <% if user_signed_in?%>
+          <% if @post.upvoted_by_user(current_user.id) %>
+            <a type="button" class="btn btn-success">^ Upvote</a>
+          <% else %>
+            <a type="button" class="btn btn-dark" href=<%= upvote_path({id: @post.id}) %>>^ Upvote</a>
+          <% end %>
+          <% if @post.downvoted_by_user(current_user.id) %>
+            <a type="button" class="btn btn-success">V Downvote</a>
+          <% else %>
+            <a type="button" class="btn btn-dark" href=<%= downvote_path({id: @post.id}) %>>V Downvote</a>
+          <% end %>
+          <button type="button" class="btn btn-dark">Share</button>
+          <button type="button" class="btn btn-dark">Report</button>
         <% end %>
-        <% if @post.downvoted_by_user(current_user.id) %>
-          <a type="button" class="btn btn-success">V Downvote</a>
-        <% else %>
-          <a type="button" class="btn btn-dark" href=<%= downvote_path({id: @post.id}) %>>V Downvote</a>
-        <% end %>
-      <button type="button" class="btn btn-dark">Share</button>
-      <button type="button" class="btn btn-dark">Report</button>
-      <% end %>
+    </div>
   </div>
   <% if user_signed_in?%>
   <%= render 'new_comment', :post => @post, :user => current_user %>
