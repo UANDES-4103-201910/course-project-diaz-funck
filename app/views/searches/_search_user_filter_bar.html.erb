@@ -6,7 +6,7 @@
           <h3>Search</h3>
           <div class="btn-group-vertical" role="group">
             <%= submit_tag("Posts", form: "search_form",:class => 'btn btn-outline-dark') %>
-            <%= submit_tag("Users", form: "search_form",:class => 'btn btn-outline-dark') %>
+            <%= submit_tag("Users", form: "search_form",:class => 'btn btn-primary') %>
           </div>
         </div>
       </div>
@@ -14,9 +14,19 @@
         <div class="col">
           <h3>By</h3>
           <div class="btn-group-vertical" role="group">
+            <% if params[:commit] == 'Country' %>
+            <%= submit_tag("Username", form: "search_form",:class => 'btn btn-outline-dark') %>
+            <%= submit_tag("Country", form: "search_form",:class => 'btn btn-primary') %>
+            <%= submit_tag("Region", form: "search_form",:class => 'btn btn-outline-dark') %>
+            <% elsif params[:commit] == 'Region' %>
             <%= submit_tag("Username", form: "search_form",:class => 'btn btn-outline-dark') %>
             <%= submit_tag("Country", form: "search_form",:class => 'btn btn-outline-dark') %>
+            <%= submit_tag("Region", form: "search_form",:class => 'btn btn-primary') %>
+            <% else %>
+            <%= submit_tag("Username", form: "search_form",:class => 'btn btn-primary') %>
+            <%= submit_tag("Country", form: "search_form",:class => 'btn btn-outline-dark') %>
             <%= submit_tag("Region", form: "search_form",:class => 'btn btn-outline-dark') %>
+            <% end %>
           </div>
         </div>
       </div>
