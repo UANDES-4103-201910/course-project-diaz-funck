@@ -51,4 +51,18 @@ class Post < ApplicationRecord
     end
     return true
   end
+
+ def can_edit?(user_id)
+    user = User.find(user_id)
+    if user == nil
+      return false
+    end
+    if user.id == self.user.id
+      return true
+    end
+    if user.is_admin?
+      return true
+    end
+    return false
+  end
 end

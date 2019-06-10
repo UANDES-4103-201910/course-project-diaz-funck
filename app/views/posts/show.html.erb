@@ -1,8 +1,25 @@
 <div class="container border border-dark rounded bg-light h-auto">
   <div class="row py-3 px-3 justify-content-between">
+    <div class="col-auto">
+      <div class="row">
+        <div class="col">
+          <% if @post.user.user_profile.image.attached? %>
+            <%= image_tag @post.user.user_profile.image.variant(resize: '80x80') %>
+          <% end %>
+          <strong><%= @post.user.username %></strong>
+        </div>
+      </div>
+    </div>
     <div class="col">
       <strong><%= @post.title %></strong>
-      <%= link_to 'Edit', edit_post_path(@post) %>
+      <% if current_user != nil && @post.can_edit?(current_user.id) %>
+        <%= link_to 'Edit', edit_post_path(@post) %>
+      <% end %>
+      <div class="row">
+        <div class="col">
+          <p><%= @post.created_at %></p>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row border bg-white h-auto py-3 px-3">
@@ -10,29 +27,33 @@
       <%= @post.description %>
     </div>
   </div>
-  <div class="row border bg-white h-auto py-3 px-3">
-    <% @post.images.each do |image| %>
-      <div class="col">
-        <%= link_to image do %>
-          <%= image_tag image.variant(resize: '150x150') %>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-  <div class="row border bg-white h-10 py-3">
-    <div class="col mx-3">
-      <div class ="row justify-content-end">
+  <% if @post.images.any? %>
+    <div class="row border bg-white h-auto py-3 px-3">
+      <% @post.images.each do |image| %>
         <div class="col">
-          <%= @post.location.region if @post.location != nil %>
+          <%= link_to image do %>
+            <%= image_tag image.variant(resize: '150x150') %>
+          <% end %>
         </div>
-      </div>
-      <div class="row justify-content-end">
-        <div class="col">
-          <%= @post.location.country if @post.location != nil %>
+      <% end %>
+    </div>
+  <% end %>
+  <% if @post.location != nil %>
+    <div class="row border bg-white h-10 py-3">
+      <div class="col mx-3">
+        <div class ="row justify-content-end">
+          <div class="col">
+            <%= @post.location.region %>
+          </div>
+        </div>
+        <div class="row justify-content-end">
+          <div class="col">
+            <%= @post.location.country %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
   <div class="row px-3 py-3 justify-content-between">
       <div class="col">
         <strong class="align-middle"><%= @post.score.to_s() + " votes" %></strong>

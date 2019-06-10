@@ -14,14 +14,14 @@ class ApplicationController < ActionController::Base
 
   def is_user_admin?
     if current_user != nil
-      return current_user.role.id == 2 || current_user.role.id == 3
+      return current_user.is_admin?
     end
     return false
   end
 
   def is_user_super_admin?
     if current_user != nil
-      return current_user.role.id == 3
+      return current_user.is_super_admin?
     end
     return false
   end

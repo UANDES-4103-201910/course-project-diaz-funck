@@ -34,7 +34,7 @@ class User < ApplicationRecord
   end
 
   def is_admin?
-    return self.role_id == 2
+    return self.role_id == 2 || self.role_id == 3
   end
 
   def is_super_admin?

@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :upvote, :downvote, :follow, :share]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :upvote, :downvote, :follow, :share, :delete_comment]
 
   # GET /posts
   # GET /posts.json
@@ -21,6 +21,9 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    if current_user != nil && !@post.can_edit?(current_user.id)
+      redirect_to root_path
+    end
   end
 
   # POST /posts
@@ -42,6 +45,9 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
+    if current_user != nil && !@post.can_edit?(current_user.id)
+      redirect_to root_path
+    end
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
@@ -137,6 +143,19 @@ class PostsController < ApplicationController
     end  
   end
 
+  def delete_comment
+    comment = Comment.find(params[:comment_id])
+    respond_to do |format|
+      if current_user != nil && comment.can_edit?(current_user.id)
+        comment.destroy
+        format.html { redirect_to @post, notice: 'Comment deleted successfully.' }
+        format.json { render :show, status: :created, location: @post }
+      else
+        format.html { redirect_to root_path }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -145,6 +164,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:user_id, :location_id, :title, :description, :gps_coordinate, :resolved, :open, images: [])
+      params.require(:post).permit(:user_id, :location_id, :title, :description, :gps_coordinate, :resolved, :open, :comment_id, images: [])
     end
 end
