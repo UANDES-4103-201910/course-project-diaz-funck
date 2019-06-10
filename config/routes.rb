@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     get 'posts', to: 'posts#new', as: :posts
     get 'upvote', to: 'posts#upvote', as: :upvote
     get 'downvote', to: 'posts#downvote', as: :downvote
+    get 'follow', to: 'posts#follow', as: :post_follow
+    get 'share', to: 'posts#share', as: :post_share
   end
   get 'home/index'
   root "home#index"

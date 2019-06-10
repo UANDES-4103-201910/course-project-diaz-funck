@@ -1,27 +1,49 @@
 <div class="container">
   <div class="row border border-dark rounded">
-    <div class="col-2 py-2">
-      <div class="col text-center">
-        <% if current_user != nil && post.upvoted_by_user(current_user.id) %>
-          <a type="button" class="btn btn-success">^</a>
-        <% else %>
-          <a type="button" class="btn btn-dark" href=<%= upvote_path({id: post.id}) %>>^</a>
-        <% end %>
-        <p class="h4"><%= post.score %></p>
-        <% if current_user != nil && post.downvoted_by_user(current_user.id) %>
-          <a type="button" class="btn btn-success">v</a>
-        <% else %>
-          <a type="button" class="btn btn-dark" href=<%= downvote_path({id: post.id}) %>>v</a>
-        <% end %>
+    <div class="col-1 py-2">
+      <div class="row">
+        <div class="col text-center">
+          <% if current_user != nil && post.upvoted_by_user(current_user.id) %>
+            <a type="button" class="btn btn-success">^</a>
+          <% else %>
+            <a type="button" class="btn btn-dark" href=<%= upvote_path({id: post.id}) %>>^</a>
+          <% end %>
+          <p class="h4"><%= post.score %></p>
+          <% if current_user != nil && post.downvoted_by_user(current_user.id) %>
+            <a type="button" class="btn btn-success">v</a>
+          <% else %>
+            <a type="button" class="btn btn-dark" href=<%= downvote_path({id: post.id}) %>>v</a>
+          <% end %>
+        </div>
       </div>
     </div>
-    <div class="col-10">
+    <div class="col-8">
       <div class="row-2">
-        <h4 class="text-truncate"><%= link_to post.title, post %></h4>
-        <h6>By <span><%= link_to post.user.username, profile_path(post.user.id)%></span></h6>
+        <div class="col">
+          <h4 class="text-truncate"><%= link_to post.title, post %></h4>
+          <h6>By <span><%= link_to post.user.username, profile_path(post.user.id)%></span></h6>
+        </div>
       </div>
       <div class="row-10">
-        <p class="block-with-text"><%= post.description %></p>
+        <div class="col">
+          <p class="block-with-text"><%= post.description %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-3 py-2">
+      <div class="row">
+        <div class="col text-right">
+          <% if post.followed_by_user(current_user.id) %>
+            <a type="button" class="btn btn-success" href=<%= post_follow_path({id: post.id}) %>>Followed</a>
+          <% else %>
+            <a type="button" class="btn btn-dark" href=<%= post_follow_path({id: post.id}) %>>Follow</a>
+          <% end %>
+          <% if post.shared_by_user(current_user.id) %>
+            <a type="button" class="btn btn-success" href=<%= post_share_path({id: post.id}) %>>Shared</a>
+          <% else %>
+            <a type="button" class="btn btn-dark" href=<%= post_share_path({id: post.id}) %>>Share</a>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

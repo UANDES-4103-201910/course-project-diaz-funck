@@ -35,4 +35,20 @@ class Post < ApplicationRecord
     end
     return true
   end
+
+  def followed_by_user(user_id)
+    follow = PostFollow.where(user_id: user_id, post_id: self.id).first
+    if follow == nil
+      return false
+    end
+    return true
+  end
+
+  def shared_by_user(user_id)
+    share = PostShare.where(user_id: user_id, post_id: self.id).first
+    if share == nil
+      return false
+    end
+    return true
+  end
 end

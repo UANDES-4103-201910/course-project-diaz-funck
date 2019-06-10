@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :upvote, :downvote, :follow, :share]
 
   # GET /posts
   # GET /posts.json
@@ -96,6 +96,42 @@ class PostsController < ApplicationController
         else
           format.html { redirect_to @post }
           format.json { render json: @post.errors, status: :unprocessable_entity }
+        end
+      end
+    end  
+  end
+
+  def follow
+    if !user_signed_in?
+      redirect_to new_user_session_path
+    else
+      new_follow = PostFollow.where(post_id: @post.id, user_id: current_user.id).first
+      respond_to do |format|
+        if new_follow == nil
+          PostFollow.create(post_id: @post.id, user_id: current_user.id)
+          format.html { redirect_to @post, notice: 'Post followed successfully.' }
+          format.json { render :show, status: :created, location: @post }
+        else
+          new_follow.destroy
+          format.html { redirect_to @post, notice: 'Post unfollowed.' }
+        end
+      end
+    end  
+  end
+
+  def share
+    if !user_signed_in?
+      redirect_to new_user_session_path
+    else
+      new_share = PostShare.where(post_id: @post.id, user_id: current_user.id).first
+      respond_to do |format|
+        if new_share == nil
+          PostShare.create(post_id: @post.id, user_id: current_user.id)
+          format.html { redirect_to @post, notice: 'Post shared successfully.' }
+          format.json { render :show, status: :created, location: @post }
+        else
+          new_share.destroy
+          format.html { redirect_to @post, notice: 'Post unshared.' }
         end
       end
     end  

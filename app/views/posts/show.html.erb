@@ -47,7 +47,16 @@
           <% else %>
             <a type="button" class="btn btn-dark" href=<%= downvote_path({id: @post.id}) %>>V Downvote</a>
           <% end %>
-          <button type="button" class="btn btn-dark">Share</button>
+          <% if @post.followed_by_user(current_user.id) %>
+            <a type="button" class="btn btn-success" href=<%= post_follow_path({id: @post.id}) %>>Followed</a>
+          <% else %>
+            <a type="button" class="btn btn-dark" href=<%= post_follow_path({id: @post.id}) %>>Follow</a>
+          <% end %>
+          <% if @post.shared_by_user(current_user.id) %>
+            <a type="button" class="btn btn-success" href=<%= post_share_path({id: @post.id}) %>>Shared</a>
+          <% else %>
+            <a type="button" class="btn btn-dark" href=<%= post_share_path({id: @post.id}) %>>Share</a>
+          <% end %>
           <button type="button" class="btn btn-dark">Report</button>
         <% end %>
     </div>
