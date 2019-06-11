@@ -4,23 +4,99 @@
       <div class="row my-3">
         <div class="col">
           <h3>View</h3>
-          <div class="btn-group-vertical" role="group">
-            <button type="button" class="btn btn-outline-dark">Hot</button>
-            <button type="button" class="btn btn-outline-dark">Newest</button>
-          </div>
+            <%= form_tag(root_path, method: "get", id: 'home_form') do %>
+              <div class="btn-group-vertical" role="group">
+              <% if params[:commit] == 'Newest' or (params[:last_view_filter] == 'Newest' and params[:commit] != 'Hot')%>
+                <input type="hidden" name="last_view_filter" value=<%= "Newest"%>>
+                <%= submit_tag("Hot", form: 'home_form', :class => 'btn btn-outline-dark') %>
+                <%= submit_tag("Newest", form: 'home_form', :class => 'btn btn-primary') %>
+              <% else%>
+                <input type="hidden" name="last_view_filter" value=<%= "Hot"%>>
+                <%= submit_tag("Hot", form: 'home_form', :class => 'btn btn-primary') %>
+                <%= submit_tag("Newest", form: 'home_form', :class => 'btn btn-outline-dark') %>
+              <% end %>
+            <% end %>
+              </div>
         </div>
       </div>
       <div class="row my-3">
         <div class="col">
           <h3>By</h3>
           <div class="btn-group-vertical" role="group">
-            <button type="button" class="btn btn-outline-dark">All</button>
-            <button type="button" class="btn btn-outline-dark">Country</button>
-            <button type="button" class="btn btn-outline-dark">City</button>
+          <% uniq_location = [] %>
+          <% render_Country = false %>
+          <% render_Region = false %>
+          <% if params[:location] != nil and params[:location].match(/^\d+$/) != nil %>
+            <% render_Region = true %>
+            <% render_Country = false %>
+          <% end %>
+          <% if params[:location] != nil and params[:location].match(/^\d+$/) == nil %>
+              <% render_Country = true %>
+              <% render_Region = false %>
+          <% end %>
+          <% if params[:commit] == "Region"%>
+            <% render_Region = true %>
+            <% render_Country = false %>
+          <% end %>
+          <% if params[:commit] == "Country"%>
+          <% render_Country = true %>
+          <% render_Region = false %>
+          <% end %>
+          <% if [nil,"All"].include? params[:commit]%>
+          <% render_Country = false %>
+          <% render_Region = false %>
+          <% end %>
+          <% if params[:location] != nil and params[:commit] == nil%>
+            <% if params[:location] != nil and params[:location].match(/^\d+$/) != nil %>
+              <% render_Region = true %>
+              <% render_Country = false %>
+            <% end %>
+            <% if params[:location] != nil and params[:location].match(/^\d+$/) == nil %>
+                <% render_Country = true %>
+                <% render_Region = false %>
+            <% end %>
+          <% end %>
+
+          <% if render_Country%>
+            <%= submit_tag("All", form: 'home_form', :class => 'btn btn-outline-dark') %>
+            <%= submit_tag("Country", form: 'home_form', :class => 'btn btn-primary') %>
+            <%= submit_tag("Region", form: 'home_form', :class => 'btn btn-outline-dark') %>
+            <select name="location" form="home_form" class="form-control" onchange="this.form.submit()">
+                <% Location.all.each do |location| %>
+                  <% unless uniq_location.include? location.country %>
+                    <% if location.country == @location_selected%>
+                      <option form="home_form" value=<%= location.country %> selected> <%= location.country %> </option>
+                    <% else %>
+                      <option form="home_form" value=<%= location.country %>> <%= location.country %> </option>
+                    <% end %>
+                    <% uniq_location.push(location.country) %>
+                  <% end %>
+                <% end %>
+            </select>
+          <% elsif render_Region%>
+            <%= submit_tag("All", form: 'home_form', :class => 'btn btn-outline-dark') %>
+            <%= submit_tag("Country", form: 'home_form', :class => 'btn btn-outline-dark') %>
+            <%= submit_tag("Region", form: 'home_form', :class => 'btn btn-primary') %>
+            <select name="location" form="home_form" class="form-control" onchange="this.form.submit()">
+                <% Location.all.each do |location| %>
+                  <% unless uniq_location.include? location %>
+                    <% if @location_selected != nil and location.id == Integer(@location_selected)%>
+                      <option form="home_form" value=<%= location.id %> selected> <%= location.region+", "+location.country %> </option>
+                    <% else %>
+                      <option form="home_form" value=<%= location.id %>> <%= location.region+", "+location.country %> </option>
+                    <% end %>
+                    <% uniq_location.push(location) %>
+                  <% end %>
+                <% end %>
+            </select>
+          <% else %>
+            <%= submit_tag("All", form: 'home_form', :class => 'btn btn-primary') %>
+            <%= submit_tag("Country", form: 'home_form', :class => 'btn btn-outline-dark') %>
+            <%= submit_tag("Region", form: 'home_form', :class => 'btn btn-outline-dark') %>
+          <% end %>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
