@@ -18,7 +18,9 @@ Summary of Implemented Features:
 
 * Users can follow, share or report posts.
 
-* Search posts by substring in post title.
+* Users can search for posts and other users using the search bar.
+
+* Users can filter posts on their home view.
 
 * Users can upload images for use in posts or as a profile picture.
 
