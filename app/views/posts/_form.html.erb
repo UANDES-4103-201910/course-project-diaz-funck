@@ -47,13 +47,8 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <button type="button" class="btn btn-outline-dark">Add GPS location</button>
-      </div>
-    </div>
   </div>
-  <%= form.hidden_field :user_id, value: current_user.id %>
+  <%= form.hidden_field :user_id, value: @post_owner %>
   <div class="actions rounded d-flex justify-content-center py-2">
     <%= form.submit%>
   </div>

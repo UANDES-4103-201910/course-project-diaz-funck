@@ -6,7 +6,7 @@
           <% if @post.user.user_profile.image.attached? %>
             <%= image_tag @post.user.user_profile.image.variant(resize: '80x80') %>
           <% end %>
-          <strong><%= @post.user.username %></strong>
+          <strong><%= link_to(@post.user.username, profile_path(@post.user.id))%></strong>
         </div>
       </div>
     </div>

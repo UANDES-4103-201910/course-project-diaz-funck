@@ -17,6 +17,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+    @post_owner = current_user.id
   end
 
   # GET /posts/1/edit
@@ -27,6 +28,7 @@ class PostsController < ApplicationController
     if !@post.can_edit?(current_user.id)
       redirect_to root_path
     end
+    @post_owner = @post.user.id
   end
 
   # POST /posts
