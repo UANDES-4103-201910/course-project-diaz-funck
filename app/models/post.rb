@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :user
   belongs_to :location, optional: true
+  has_one :dumpstered_post
   has_many_attached :images
   has_many :post_follows, dependent: :destroy
   has_many :post_shares, dependent: :destroy
@@ -18,6 +19,19 @@ class Post < ApplicationRecord
       total_score -= 1 if !vote.up
     end
     return total_score
+  end
+
+  def dumpstered?
+    self.dumpstered_post != nil
+  end
+
+  def accessible?(user_id)
+    user = User.find(user_id)
+    !dumpstered? || user.is_admin?
+  end
+
+  def self.visible_posts
+    Post.left_outer_joins(:dumpstered_post).where(dumpstered_posts: {id: nil})
   end
 
   def upvoted_by_user(user_id)

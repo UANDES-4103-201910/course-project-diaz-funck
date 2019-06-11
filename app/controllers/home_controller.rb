@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     if !user_signed_in?
       redirect_to guest_index_path
     else
-      @posts = get_all_posts
+      @posts = get_all_visible_posts
     end
   end
   

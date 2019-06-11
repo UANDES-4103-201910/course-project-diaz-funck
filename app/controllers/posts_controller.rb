@@ -22,10 +22,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-    if current_user == nil
-      redirect_to root_path
-    end
-    if !@post.can_edit?(current_user.id)
+    if current_user == nil || !@post.can_edit?(current_user.id) || !post_accessible?
       redirect_to root_path
     end
     @post_owner = @post.user.id
@@ -52,7 +49,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
-    if current_user != nil && @post.can_edit?(current_user.id)
+    if current_user != nil && @post.can_edit?(current_user.id) && post_accessible?
       respond_to do |format|
         update_params = post_params.except(:comment_id, :comments_disabled)
         update_params[:open] = !post_params[:comments_disabled]
@@ -87,6 +84,9 @@ class PostsController < ApplicationController
     if !user_signed_in?
       redirect_to new_user_session_path
     else
+      if !post_accessible?
+        redirect_to root_path
+      end
       vote = Vote.where(post_id: @post.id, user_id: current_user.id).first_or_create
       respond_to do |format|
         if vote.update(up: true)
@@ -104,6 +104,9 @@ class PostsController < ApplicationController
     if !user_signed_in?
       redirect_to new_user_session_path
     else
+      if !post_accessible?
+        redirect_to root_path
+      end
       vote = Vote.where(post_id: @post.id, user_id: current_user.id).first_or_create
       respond_to do |format|
         if vote.update(up: false)
@@ -121,6 +124,9 @@ class PostsController < ApplicationController
     if !user_signed_in?
       redirect_to new_user_session_path
     else
+      if !post_accessible?
+        redirect_to root_path
+      end
       new_follow = PostFollow.where(post_id: @post.id, user_id: current_user.id).first
       respond_to do |format|
         if new_follow == nil
@@ -139,6 +145,9 @@ class PostsController < ApplicationController
     if !user_signed_in?
       redirect_to new_user_session_path
     else
+      if !post_accessible?
+        redirect_to root_path
+      end
       new_share = PostShare.where(post_id: @post.id, user_id: current_user.id).first
       respond_to do |format|
         if new_share == nil
@@ -157,6 +166,9 @@ class PostsController < ApplicationController
     if !user_signed_in?
       redirect_to new_user_session_path
     else
+      if !post_accessible?
+        redirect_to root_path
+      end
       new_report = PostReport.where(post_id: @post.id, user_id: current_user.id).first
       respond_to do |format|
         if new_report == nil
@@ -187,6 +199,10 @@ class PostsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
+    end
+
+    def post_accessible
+      !@post.dumpstered? || is_user_admin?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
