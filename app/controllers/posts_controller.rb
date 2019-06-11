@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :upvote, :downvote, :follow, :share, :delete_comment]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :upvote, :downvote, :follow, :share, :report, :delete_comment]
 
   # GET /posts
   # GET /posts.json
@@ -144,6 +144,23 @@ class PostsController < ApplicationController
         else
           new_share.destroy
           format.html { redirect_to @post, notice: 'Post unshared.' }
+        end
+      end
+    end  
+  end
+
+  def report
+    if !user_signed_in?
+      redirect_to new_user_session_path
+    else
+      new_report = PostReport.where(post_id: @post.id, user_id: current_user.id).first
+      respond_to do |format|
+        if new_report == nil
+          PostReport.create(post_id: @post.id, user_id: current_user.id)
+          format.html { redirect_to @post, notice: 'Post reported successfully.' }
+          format.json { render :show, status: :created, location: @post }
+        else
+          format.html { redirect_to @post }
         end
       end
     end  

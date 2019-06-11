@@ -52,6 +52,14 @@ class Post < ApplicationRecord
     return true
   end
 
+  def reported_by_user(user_id)
+    report = PostReport.where(user_id: user_id, post_id: self.id).first
+    if report == nil
+      return false
+    end
+    return true
+  end
+
  def can_edit?(user_id)
     user = User.find(user_id)
     if user == nil

@@ -78,7 +78,11 @@
           <% else %>
             <a type="button" class="btn btn-dark" href=<%= post_share_path({id: @post.id}) %>>Share</a>
           <% end %>
-          <button type="button" class="btn btn-dark">Report</button>
+          <% if @post.reported_by_user(current_user.id) %>
+            <a type="button" class="btn btn-success">Reported</a>
+          <% else %>
+            <a type="button" class="btn btn-dark" href=<%= post_report_path({id: @post.id}) %>>Report</a>
+          <% end %>
         <% end %>
     </div>
   </div>
