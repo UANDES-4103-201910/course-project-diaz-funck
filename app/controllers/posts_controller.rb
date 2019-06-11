@@ -201,7 +201,7 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     end
 
-    def post_accessible
+    def post_accessible?
       !@post.dumpstered? || is_user_admin?
     end
 
