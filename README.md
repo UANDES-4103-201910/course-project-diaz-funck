@@ -10,30 +10,24 @@ Summary of Implemented Features:
 
 * Administrator tool for user administration. New users can be created, and existing users can be edited or deleted. Super administrators can only be edited by other super administrators.
 
-* User profiles with editable user information and collection of posts by the user.
+* User profiles with editable user information and user activity.
 
-* Users can create posts, as well as comment on them. Posts can be upvoted or downvoted by users.
+* Users can create posts, as well as comment on them.
 
-* View user profiles
+* Posts can be upvoted or downvoted by users.
 
-* Edit user profile
+* Users can follow, share or report posts.
 
-* View posts without file attachments
+* Search posts by substring in post title.
 
-* Edit posts
-
-* View author profile in comments
-
-* Search posts by substring in post title
+* Users can upload images for use in posts or as a profile picture.
 
 
 
 Summary of Pending Features:
 
-* File upload.
+* Multiple file upload.
 
-* User search.
+* Sending posts to or restore from Dumpster.
 
-* Delete posts
-
-* Mark post as inappropiate (report)
+* Geofences and map locations.
