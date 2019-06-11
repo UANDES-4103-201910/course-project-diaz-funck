@@ -2,6 +2,9 @@ class SearchesController < ApplicationController
 
   def index
     @collection = {type: 'posts', content: []}
+    if search_params[:last_search] != nil
+      search_params[:q] = search_params[:last_search]
+    end
     case search_params[:commit]
     when "Users"
       @collection[:type] = 'users'
@@ -35,7 +38,7 @@ class SearchesController < ApplicationController
 
   private
   def search_params
-    params.permit(:q, :commit)
+    params.permit(:q, :commit, :last_search)
   end
 
 end

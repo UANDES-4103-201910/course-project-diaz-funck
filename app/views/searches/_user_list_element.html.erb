@@ -1,14 +1,16 @@
 <div class="container">
   <div class="row border border-dark rounded">
-    <div class="col-2 py-2">
-      <div class="col text-center border bg-light p-4">
-        <p class="h4"><%= "picture" %></p>
-      </div>
+    <div class="col-2 p-2 border bg-light">
+        <% if user.user_profile.image.attached? %>
+        <%= image_tag user.user_profile.image.variant(resize: '120x120') %>
+        <% end %>
     </div>
     <div class="col-10">
       <div class="row-2">
-        <h4 class="text-truncate"><%= user.username %></h4>
+        <h4 class="text-truncate"><%= link_to user.username, profile_path(user.id)%></h4>
         <h6>Location: <span><%= user_location(user) %></span></h6>
+        <h6>Posts created: <span><%= Post.where("user_id == ?",user.id).size %></span></h6>
+        <h6>Since: <span><%= user.created_at %></span></h6>
       </div>
     </div>
   </div>

@@ -86,16 +86,17 @@ class PostsController < ApplicationController
     else
       if !post_accessible?
         redirect_to root_path
-      end
-      vote = Vote.where(post_id: @post.id, user_id: current_user.id).first_or_create
-      respond_to do |format|
-        if vote.update(up: true)
-          format.html { redirect_to @post, notice: 'Post was successfully upvoted.' }
-          format.json { render :show, status: :created, location: @post }
-        else
-          format.html { redirect_to @post }
-          format.json { render json: @post.errors, status: :unprocessable_entity }
-        end  
+      else
+        vote = Vote.where(post_id: @post.id, user_id: current_user.id).first_or_create
+        respond_to do |format|
+          if vote.update(up: true)
+            format.html { redirect_to @post, notice: 'Post was successfully upvoted.' }
+            format.json { render :show, status: :created, location: @post }
+          else
+            format.html { redirect_to @post }
+            format.json { render json: @post.errors, status: :unprocessable_entity }
+          end
+        end
       end
     end
   end
@@ -106,18 +107,19 @@ class PostsController < ApplicationController
     else
       if !post_accessible?
         redirect_to root_path
-      end
-      vote = Vote.where(post_id: @post.id, user_id: current_user.id).first_or_create
-      respond_to do |format|
-        if vote.update(up: false)
-          format.html { redirect_to @post, notice: 'Post was successfully downvoted.' }
-          format.json { render :show, status: :created, location: @post }
-        else
-          format.html { redirect_to @post }
-          format.json { render json: @post.errors, status: :unprocessable_entity }
+      else
+        vote = Vote.where(post_id: @post.id, user_id: current_user.id).first_or_create
+        respond_to do |format|
+          if vote.update(up: false)
+            format.html { redirect_to @post, notice: 'Post was successfully downvoted.' }
+            format.json { render :show, status: :created, location: @post }
+          else
+            format.html { redirect_to @post }
+            format.json { render json: @post.errors, status: :unprocessable_entity }
+          end
         end
       end
-    end  
+    end
   end
 
   def follow
@@ -126,19 +128,20 @@ class PostsController < ApplicationController
     else
       if !post_accessible?
         redirect_to root_path
-      end
-      new_follow = PostFollow.where(post_id: @post.id, user_id: current_user.id).first
-      respond_to do |format|
-        if new_follow == nil
-          PostFollow.create(post_id: @post.id, user_id: current_user.id)
-          format.html { redirect_to @post, notice: 'Post followed successfully.' }
-          format.json { render :show, status: :created, location: @post }
-        else
-          new_follow.destroy
-          format.html { redirect_to @post, notice: 'Post unfollowed.' }
+      else
+        new_follow = PostFollow.where(post_id: @post.id, user_id: current_user.id).first
+        respond_to do |format|
+          if new_follow == nil
+            PostFollow.create(post_id: @post.id, user_id: current_user.id)
+            format.html { redirect_to @post, notice: 'Post followed successfully.' }
+            format.json { render :show, status: :created, location: @post }
+          else
+            new_follow.destroy
+            format.html { redirect_to @post, notice: 'Post unfollowed.' }
+          end
         end
       end
-    end  
+    end
   end
 
   def share
@@ -147,19 +150,20 @@ class PostsController < ApplicationController
     else
       if !post_accessible?
         redirect_to root_path
-      end
-      new_share = PostShare.where(post_id: @post.id, user_id: current_user.id).first
-      respond_to do |format|
-        if new_share == nil
-          PostShare.create(post_id: @post.id, user_id: current_user.id)
-          format.html { redirect_to @post, notice: 'Post shared successfully.' }
-          format.json { render :show, status: :created, location: @post }
-        else
-          new_share.destroy
-          format.html { redirect_to @post, notice: 'Post unshared.' }
+      else
+        new_share = PostShare.where(post_id: @post.id, user_id: current_user.id).first
+        respond_to do |format|
+          if new_share == nil
+            PostShare.create(post_id: @post.id, user_id: current_user.id)
+            format.html { redirect_to @post, notice: 'Post shared successfully.' }
+            format.json { render :show, status: :created, location: @post }
+          else
+            new_share.destroy
+            format.html { redirect_to @post, notice: 'Post unshared.' }
+          end
         end
       end
-    end  
+    end
   end
 
   def report
@@ -168,18 +172,19 @@ class PostsController < ApplicationController
     else
       if !post_accessible?
         redirect_to root_path
-      end
-      new_report = PostReport.where(post_id: @post.id, user_id: current_user.id).first
-      respond_to do |format|
-        if new_report == nil
-          PostReport.create(post_id: @post.id, user_id: current_user.id)
-          format.html { redirect_to @post, notice: 'Post reported successfully.' }
-          format.json { render :show, status: :created, location: @post }
-        else
-          format.html { redirect_to @post }
+      else
+        new_report = PostReport.where(post_id: @post.id, user_id: current_user.id).first
+        respond_to do |format|
+          if new_report == nil
+            PostReport.create(post_id: @post.id, user_id: current_user.id)
+            format.html { redirect_to @post, notice: 'Post reported successfully.' }
+            format.json { render :show, status: :created, location: @post }
+          else
+            format.html { redirect_to @post }
+          end
         end
       end
-    end  
+    end
   end
 
   def delete_comment

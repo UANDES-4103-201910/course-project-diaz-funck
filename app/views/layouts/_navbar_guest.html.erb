@@ -3,7 +3,12 @@
   <%= link_to "GeoComplainer", root_path, :class => 'navbar-brand'%>
   </div>
   <%= form_tag(search_path, method: "get", id: 'search_form', :class => "form-inline my-2 my-lg-0") do %>
-    <%= text_field_tag(:q, nil ,pattern: '^(?!\s*$).+') %>
+    <% if params[:q] != nil%>
+      <%= text_field_tag(:q, params[:q] ,pattern: '^(?!\s*$).+') %>
+    <% else %>
+      <%= text_field_tag(:q, nil ,pattern: '^(?!\s*$).+') %>
+    <% end %>
+    <input type="hidden" name="last_search" value=<%= params[:q]%>>
     <%= submit_tag("Search", :class => 'btn btn-outline-light mx-2 text-light') %>
   <% end %>
   <ul class="navbar-nav ml-md-auto">
