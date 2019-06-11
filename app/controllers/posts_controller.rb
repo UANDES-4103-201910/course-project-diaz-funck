@@ -34,7 +34,9 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
+    create_params = post_params.except(:comment_id, :comments_disabled)
+    @post = Post.new(create_params)
+    @post.open = !post_params[:comments_disabled]
 
     respond_to do |format|
       if @post.save
@@ -52,7 +54,9 @@ class PostsController < ApplicationController
   def update
     if current_user != nil && @post.can_edit?(current_user.id)
       respond_to do |format|
-        if @post.update(post_params)
+        update_params = post_params.except(:comment_id, :comments_disabled)
+        update_params[:open] = !post_params[:comments_disabled]
+        if @post.update(update_params)
           format.html { redirect_to @post, notice: 'Post was successfully updated.' }
           format.json { render :show, status: :ok, location: @post }
         else
@@ -187,6 +191,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:user_id, :location_id, :title, :description, :gps_coordinate, :resolved, :open, :comment_id, images: [])
+      params.require(:post).permit(:user_id, :location_id, :title, :description, :gps_coordinate, :resolved, :comments_disabled, :comment_id, images: [])
     end
 end

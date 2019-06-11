@@ -86,14 +86,16 @@
         <% end %>
     </div>
   </div>
-  <% if user_signed_in?%>
+  <% if user_signed_in? && @post.open %>
   <%= render 'new_comment', :post => @post, :user => current_user %>
   <% end %>
 </div>
-<ul class="list-unstyled">
-  <% @comments.each do |comment| %>
-  <li class="my-1">
-    <%= render 'comment_list_element', :comment => comment  %>
-  </li>
-  <% end %>
-</ul>
+<% if @post.open && @comments.any? %>
+  <ul class="list-unstyled">
+    <% @comments.each do |comment| %>
+      <li class="my-1">
+        <%= render 'comment_list_element', :comment => comment  %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

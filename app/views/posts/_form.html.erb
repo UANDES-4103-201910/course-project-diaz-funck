@@ -45,6 +45,10 @@
           <%= form.label :location_id %>
           <%= form.collection_select :location_id, Location.all, :id, :country_region, :include_blank => 'None' %>
         </div>
+        <div class="field">
+          <%= form.check_box :comments_disabled %>
+          <%= form.label "Disable Comments" %>
+        </div>
       </div>
     </div>
   </div>
