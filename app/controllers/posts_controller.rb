@@ -21,7 +21,10 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-    if current_user != nil && !@post.can_edit?(current_user.id)
+    if current_user == nil
+      redirect_to root_path
+    end
+    if !@post.can_edit?(current_user.id)
       redirect_to root_path
     end
   end
@@ -45,17 +48,18 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
-    if current_user != nil && !@post.can_edit?(current_user.id)
-      redirect_to root_path
-    end
-    respond_to do |format|
-      if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { render :show, status: :ok, location: @post }
-      else
-        format.html { render :edit }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+    if current_user != nil && @post.can_edit?(current_user.id)
+      respond_to do |format|
+        if @post.update(post_params)
+          format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+          format.json { render :show, status: :ok, location: @post }
+        else
+          format.html { render :edit }
+          format.json { render json: @post.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to root_path
     end
   end
 

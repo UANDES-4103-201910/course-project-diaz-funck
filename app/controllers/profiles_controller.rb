@@ -23,22 +23,29 @@ class ProfilesController < ApplicationController
 
   def update
     @user = User.find_by('id == ?',profile_params[:id])
-    @user.username = profile_params[:username]
-    @user.user_profile[:biography] = profile_params[:biography]
-    @user.user_profile.image.attach(profile_params[:image])
-    @user.location = Location.find_by('id == ?',profile_params[:location_id])
-    if @user.save
-      flash[:notice] = "Success"
+    profile = @user.user_profile
+    if current_user != nil && profile.can_edit?(current_user.id)
+      @user.username = profile_params[:username]
+      profile.biography = profile_params[:biography]
+      if profile_params[:image] != nil
+        profile.image.attach(profile_params[:image])
+      end
+      @user.location = Location.find_by('id == ?',profile_params[:location_id])
+      if @user.save && profile.save
+        flash[:notice] = "Success"
+      else
+        flash[:alert] = "Error"
+      end
+      redirect_to profile_path(@user.id)
     else
-      flash[:alert] = "Error"
+      redirect_to root_path
     end
-    redirect_to profile_path(@user.id)
   end
 
   private
 
     def profile_params
-      params.permit(:id, :history, :username, :biography, :location_id, :image)
+      params.permit(:id, :history, :username, :biography, :location_id, :image, :authenticity_token)
     end
 
     def commented_posts(user)

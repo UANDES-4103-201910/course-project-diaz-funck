@@ -4,8 +4,9 @@
       <div class="row my-3">
         <div class="col">
           <%if user_signed_in?%>
-            <% if user.id == current_user.id %>
+            <% if user.user_profile.can_edit?(current_user.id) %>
             <form action=<%= profile_update_path(user.id)%> method="post" id="profile-form" enctype="multipart/form-data">
+              <%= hidden_field_tag 'authenticity_token', form_authenticity_token %>
               <input type="text" name="username" form="profile-form" value=<%= user.username%>>
             </form>
             <% else %>
@@ -20,7 +21,7 @@
           <% if user.user_profile.image.attached? %>
             <%= image_tag user.user_profile.image.variant(resize: '150x150') %>
           <% end %>
-          <% if user.id == current_user.id %>
+          <% if user.user_profile.can_edit?(current_user.id) %>
             <div class="row">
               <div class="col">
                 <div class="field">
@@ -36,7 +37,7 @@
         <div class="col">
           <h4>Biography</h4>
           <%if user_signed_in?%>
-            <% if user.id == current_user.id %>
+            <% if user.user_profile.can_edit?(current_user.id) %>
               <textarea form="profile-form" name="biography"><%= user.user_profile.biography%></textarea>
             <% else %>
             <div class="col border rounded py-3 px-5">
@@ -52,7 +53,7 @@
             <div class="col-sm">
               <ul class="list-group list-group-flush">
                 <%if user_signed_in?%>
-                  <% if user.id == current_user.id %>
+                  <% if user.user_profile.can_edit?(current_user.id) %>
                   <select name="location_id" form="profile-form">
                     <% Location.all.each do |location| %>
                       <% if user.location.id == location.id %>
