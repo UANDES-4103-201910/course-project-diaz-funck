@@ -6,7 +6,9 @@
           <h5>My Complaints</h5>
           <ul class="list-group list-group-flush">
             <% Post.where('user_id == ?', current_user.id).all.each do |post|%>
-            <li class="text-primary"><%= link_to post.title, post, :class => "text-primary" %></li>
+              <% if post.accessible?(current_user.id) %>
+                <li><h6><%= link_to post.title, post, :class => "text-primary" %></h6></li>
+              <% end %>
             <% end %>
           </ul>
         </div>
@@ -17,7 +19,9 @@
           <ul class="list-group list-group-flush">
             <% PostFollow.where('user_id == ?', current_user.id).each do |pf| %>
               <% post = Post.find_by('id == ?', pf.post_id)%>
-              <li class="text-primary"><%= link_to post.title, post, :class => "text-primary" %></li>
+              <% if post.accessible?(current_user.id) %>
+                <li><h6><%= link_to post.title, post, :class => "text-primary" %></h6></li>
+              <% end %>
             <% end %>
           </ul>
         </div>

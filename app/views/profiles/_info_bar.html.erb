@@ -4,30 +4,40 @@
       <div class="row my-3">
         <div class="col">
           <%if user_signed_in?%>
-            <% if user.id == current_user.id %>
-            <form action=<%= profile_update_path(user.id)%> method="post" id="profile-form">
+            <% if user.user_profile.can_edit?(current_user.id) %>
+            <form action=<%= profile_update_path(user.id)%> method="post" id="profile-form" enctype="multipart/form-data">
+              <%= hidden_field_tag 'authenticity_token', form_authenticity_token %>
               <input type="text" name="username" form="profile-form" value=<%= user.username%>>
             </form>
             <% else %>
               <h3><%= user.username %></h3>
             <% end %>
           <% end %>
+          <h6><%= user.role.role_name %></h6>
         </div>
       </div>
       <div class="row my-3">
         <div class="col">
-          <h3><%= user.role.role_name %></h3>
+          <% if user.user_profile.image.attached? %>
+            <%= image_tag user.user_profile.image.variant(resize: '150x150') %>
+          <% end %>
+          <% if user.user_profile.can_edit?(current_user.id) %>
+            <div class="row">
+              <div class="col">
+                <div class="field">
+                  <label for="image">Image</label>
+                  <input type="file" name="image" form="profile-form" accept="image/png,image/gif,image/jpeg">
+                </div>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
       <div class="row my-3">
         <div class="col">
-          <h3>Biography</h3>
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col">
+          <h4>Biography</h4>
           <%if user_signed_in?%>
-            <% if user.id == current_user.id %>
+            <% if user.user_profile.can_edit?(current_user.id) %>
               <textarea form="profile-form" name="biography"><%= user.user_profile.biography%></textarea>
             <% else %>
             <div class="col border rounded py-3 px-5">
@@ -41,12 +51,9 @@
         <div class="container">
           <div class="row">
             <div class="col-sm">
-              <button type="button" class="btn btn-outline-dark">Geofence</button>
-            </div>
-            <div class="col-sm">
               <ul class="list-group list-group-flush">
                 <%if user_signed_in?%>
-                  <% if user.id == current_user.id %>
+                  <% if user.user_profile.can_edit?(current_user.id) %>
                   <select name="location_id" form="profile-form">
                     <% Location.all.each do |location| %>
                       <% if user.location.id == location.id %>
@@ -56,7 +63,7 @@
                       <% end %>
                     <% end %>
                   </select>
-                    <input type="submit" value="update" form="profile-form">
+                    <input type="submit" value="Update" form="profile-form">
                   <% else %>
                     <a href="#" class="list-group-item"> <%= user.location.region %></a>
                     <a href="#" class="list-group-item"> <%= user.location.country %></a>

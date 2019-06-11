@@ -73,3 +73,5 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 
 gem 'cancancan'
+
+gem 'mini_magick'

@@ -1,6 +1,8 @@
 class Post < ApplicationRecord
   belongs_to :user
   belongs_to :location, optional: true
+  has_one :dumpstered_post
+  has_many_attached :images
   has_many :post_follows, dependent: :destroy
   has_many :post_shares, dependent: :destroy
   has_many :post_reports, dependent: :destroy
@@ -19,6 +21,19 @@ class Post < ApplicationRecord
     return total_score
   end
 
+  def dumpstered?
+    self.dumpstered_post != nil
+  end
+
+  def accessible?(user_id)
+    user = User.find(user_id)
+    !dumpstered? || user.is_admin?
+  end
+
+  def self.visible_posts
+    Post.left_outer_joins(:dumpstered_post).where(dumpstered_posts: {id: nil})
+  end
+
   def upvoted_by_user(user_id)
     vote = Vote.where(user_id: user_id, post_id: self.id).first
     if vote == nil || !vote.up
@@ -33,5 +48,43 @@ class Post < ApplicationRecord
       return false
     end
     return true
+  end
+
+  def followed_by_user(user_id)
+    follow = PostFollow.where(user_id: user_id, post_id: self.id).first
+    if follow == nil
+      return false
+    end
+    return true
+  end
+
+  def shared_by_user(user_id)
+    share = PostShare.where(user_id: user_id, post_id: self.id).first
+    if share == nil
+      return false
+    end
+    return true
+  end
+
+  def reported_by_user(user_id)
+    report = PostReport.where(user_id: user_id, post_id: self.id).first
+    if report == nil
+      return false
+    end
+    return true
+  end
+
+ def can_edit?(user_id)
+    user = User.find(user_id)
+    if user == nil
+      return false
+    end
+    if user.id == self.user.id
+      return true
+    end
+    if user.is_admin?
+      return true
+    end
+    return false
   end
 end

@@ -1,19 +1,21 @@
 <div class="container p-2 border border-dark rounded">
   <div class="row px-3">
     <div class="col-9">
+      <% if comment.user.user_profile.image.attached? %>
+        <%= image_tag comment.user.user_profile.image.variant(resize: '50x50') %>
+      <% end %>
       <%= link_to(comment.user.username, profile_path(comment.user.id))%>
     </div>
     <div class="col-3 d-flex justify-content-between">
-      <%= time_ago_in_words(comment.created_at) + " ago"%>
-      <%= link_to('edit')%>
+      <%= "(" + time_ago_in_words(comment.created_at) + " ago)"%>
+      <% if current_user != nil && comment.can_edit?(current_user.id) %>
+        <%= link_to 'Delete', delete_comment_path({id: @post.id, comment_id: comment.id}) %>
+      <% end %>
     </div>
   </div>
   <div class="row px-3 py-1">
-    <div class="col-11 border border-dark py-1">
+    <div class="col border border-dark py-1">
       <%= comment.content%>
-    </div>
-    <div class="col-1">
-      <%= button_to("Reply", nil,:disabled => true)%>
     </div>
   </div>
 </div>
