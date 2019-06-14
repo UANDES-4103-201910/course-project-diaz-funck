@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row border border-dark rounded">
-    <div class="col-1 py-2 bg-light">
+    <div class="col-2 py-2 bg-light">
       <div class="row">
         <div class="col text-center">
           <% if current_user != nil && post.upvoted_by_user(current_user.id) %>
@@ -31,7 +31,7 @@
       </div>
     </div>
     <% if user_signed_in? %>
-    <div class="col-2 py-2 bg-light">
+    <div class="col-3 py-2 bg-light">
       <div class="btn-group-vertical w-100" role="group">
         <% if post.followed_by_user(current_user.id) %>
           <a type="button" class="btn btn-primary text-light" href=<%= post_follow_path({id: post.id}) %>>Followed</a>

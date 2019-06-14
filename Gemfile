@@ -66,7 +66,7 @@ gem 'jquery-rails'
 
 gem 'devise'
 
-gem 'therubyracer'
+gem 'mini_racer'
 
 gem 'omniauth'
 
