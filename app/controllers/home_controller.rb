@@ -6,14 +6,14 @@ class HomeController < ApplicationController
       posts = []
       query = []
       if home_params[:commit] == "Hot"
-        posts = Post.all.sort_by {|post| post.score }.reverse
+        posts = Post.visible_posts.sort_by {|post| post.score }.reverse
       elsif home_params[:commit] == "Newest"
-        posts = Post.all.sort_by {|post| post.created_at }.reverse
+        posts = Post.visible_posts.sort_by {|post| post.created_at }.reverse
       elsif ["Country","Region"].include? home_params[:commit]
         if home_params[:last_view_filter] == "Newest"
-          query = Post.all.sort_by {|post| post.created_at }.reverse
+          query = Post.visible_posts.sort_by {|post| post.created_at }.reverse
         else
-          query = Post.all.sort_by {|post| post.score }.reverse
+          query = Post.visible_posts.sort_by {|post| post.score }.reverse
         end
         if home_params[:commit] == "Country"
           @location_selected = Location.first.country
@@ -34,9 +34,9 @@ class HomeController < ApplicationController
       elsif home_params[:location] != nil and home_params[:commit] == nil
         @location_selected = home_params[:location]
         if home_params[:last_view_filter] == "Newest"
-          query = Post.all.sort_by {|post| post.created_at }.reverse
+          query = Post.visible_posts.sort_by {|post| post.created_at }.reverse
         else
-          query = Post.all.sort_by {|post| post.score }.reverse
+          query = Post.visible_posts.sort_by {|post| post.score }.reverse
         end
         if home_params[:commit] == "Country"
           query.each do |post|
@@ -54,9 +54,9 @@ class HomeController < ApplicationController
         end
       elsif [nil,"All"].include? home_params[:commit]
         if home_params[:last_view_filter] == "Newest"
-          posts = Post.all.sort_by {|post| post.created_at }.reverse
+          posts = Post.visible_posts.sort_by {|post| post.created_at }.reverse
         else
-          posts = Post.all.sort_by {|post| post.score }.reverse
+          posts = Post.visible_posts.sort_by {|post| post.score }.reverse
         end
       end
       @posts = posts
