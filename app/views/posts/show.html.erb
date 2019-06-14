@@ -59,29 +59,29 @@
         <strong class="align-middle"><%= @post.score.to_s() + " votes" %></strong>
         <% if user_signed_in?%>
           <% if @post.upvoted_by_user(current_user.id) %>
-            <a type="button" class="btn btn-success">^ Upvote</a>
+            <a type="button" class="btn btn-primary text-light">^ Upvote</a>
           <% else %>
-            <a type="button" class="btn btn-dark" href=<%= upvote_path({id: @post.id}) %>>^ Upvote</a>
+            <a type="button" class="btn btn-outline-dark text-dark" href=<%= upvote_path({id: @post.id}) %>>^ Upvote</a>
           <% end %>
           <% if @post.downvoted_by_user(current_user.id) %>
-            <a type="button" class="btn btn-success">V Downvote</a>
+            <a type="button" class="btn btn-primary text-light">V Downvote</a>
           <% else %>
-            <a type="button" class="btn btn-dark" href=<%= downvote_path({id: @post.id}) %>>V Downvote</a>
+            <a type="button" class="btn btn-outline-dark text-dark" href=<%= downvote_path({id: @post.id}) %>>V Downvote</a>
           <% end %>
           <% if @post.followed_by_user(current_user.id) %>
-            <a type="button" class="btn btn-success" href=<%= post_follow_path({id: @post.id}) %>>Followed</a>
+            <a type="button" class="btn btn-primary text-light" href=<%= post_follow_path({id: @post.id}) %>>Followed</a>
           <% else %>
-            <a type="button" class="btn btn-dark" href=<%= post_follow_path({id: @post.id}) %>>Follow</a>
+            <a type="button" class="btn btn-outline-dark text-dark" href=<%= post_follow_path({id: @post.id}) %>>Follow</a>
           <% end %>
           <% if @post.shared_by_user(current_user.id) %>
-            <a type="button" class="btn btn-success" href=<%= post_share_path({id: @post.id}) %>>Shared</a>
+            <a type="button" class="btn btn-primary text-light" href=<%= post_share_path({id: @post.id}) %>>Shared</a>
           <% else %>
-            <a type="button" class="btn btn-dark" href=<%= post_share_path({id: @post.id}) %>>Share</a>
+            <a type="button" class="btn btn-outline-dark text-dark" href=<%= post_share_path({id: @post.id}) %>>Share</a>
           <% end %>
           <% if @post.reported_by_user(current_user.id) %>
-            <a type="button" class="btn btn-success">Reported</a>
+            <a type="button" class="btn btn-primary text-light">Reported</a>
           <% else %>
-            <a type="button" class="btn btn-dark" href=<%= post_report_path({id: @post.id}) %>>Report</a>
+            <a type="button" class="btn btn-outline-dark text-dark" href=<%= post_report_path({id: @post.id}) %>>Report</a>
           <% end %>
         <% end %>
     </div>

@@ -2,27 +2,52 @@
   <div class="row align-items-center justify-content-center border border-dark rounded py-3">
     <%= form_tag(profile_path(@user.id), method: "get") do %>
       <%= hidden_field_tag(:history, 'all') %>
-      <%= submit_tag("All", class: "btn btn-outline-dark") %>
+      <% if not ["Created","Shared","Commented","Upvoted","Downvoted"].include? params[:commit] %>
+        <%= submit_tag("All", class: "btn btn-primary") %>
+      <% else %>
+        <%= submit_tag("All", class: "btn btn-outline-dark") %>
+      <% end %>
     <% end %>
     <%= form_tag(profile_path(@user.id), method: "get") do %>
       <%= hidden_field_tag(:history, 'created') %>
-      <%= submit_tag("Created", class: "btn btn-outline-dark") %>
+      <% if params[:commit] == "Created" %>
+        <%= submit_tag("Created", class: "btn btn-primary") %>
+      <% else %>
+        <%= submit_tag("Created", class: "btn btn-outline-dark") %>
+      <% end %>
     <% end %>
     <%= form_tag(profile_path(@user.id), method: "get") do %>
       <%= hidden_field_tag(:history, 'shared') %>
-      <%= submit_tag("Shared", class: "btn btn-outline-dark") %>
+      <% if params[:commit] == "Shared" %>
+        <%= submit_tag("Shared", class: "btn btn-primary") %>
+      <% else %>
+        <%= submit_tag("Shared", class: "btn btn-outline-dark") %>
+      <% end %>
+
     <% end %>
     <%= form_tag(profile_path(@user.id), method: "get") do %>
       <%= hidden_field_tag(:history, 'commented') %>
-      <%= submit_tag("Commented", class: "btn btn-outline-dark") %>
+      <% if params[:commit] == "Commented" %>
+        <%= submit_tag("Commented", class: "btn btn-primary") %>
+      <% else %>
+        <%= submit_tag("Commented", class: "btn btn-outline-dark") %>
+      <% end %>
     <% end %>
     <%= form_tag(profile_path(@user.id), method: "get") do %>
       <%= hidden_field_tag(:history, 'upvoted') %>
-      <%= submit_tag("Upvoted", class: "btn btn-outline-dark") %>
+      <% if params[:commit] == "Upvoted" %>
+        <%= submit_tag("Upvoted", class: "btn btn-primary") %>
+      <% else %>
+        <%= submit_tag("Upvoted", class: "btn btn-outline-dark") %>
+      <% end %>
     <% end %>
     <%= form_tag(profile_path(@user.id), method: "get") do %>
       <%= hidden_field_tag(:history, 'downvoted') %>
-      <%= submit_tag("Downvoted", class: "btn btn-outline-dark") %>
+      <% if params[:commit] == "Downvoted" %>
+        <%= submit_tag("Downvoted", class: "btn btn-primary") %>
+      <% else %>
+        <%= submit_tag("Downvoted", class: "btn btn-outline-dark") %>
+      <% end %>
     <% end %>
   </div>
 

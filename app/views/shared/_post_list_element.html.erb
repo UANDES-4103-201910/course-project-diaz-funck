@@ -1,18 +1,18 @@
 <div class="container">
-  <div class="row border border-dark rounded">
+  <div class="row border border-outline-dark rounded">
     <div class="col-1 py-2 bg-light">
       <div class="row">
         <div class="col text-center">
           <% if current_user != nil && post.upvoted_by_user(current_user.id) %>
-            <a type="button" class="btn btn-primary">^</a>
+            <a type="button" class="btn btn-primary text-light">^</a>
           <% else %>
-            <a type="button" class="btn btn-dark" href=<%= upvote_path({id: post.id}) %>>^</a>
+            <a type="button" class="btn btn-outline-dark text-dark" href=<%= upvote_path({id: post.id}) %>>^</a>
           <% end %>
           <p class="h4"><%= post.score %></p>
           <% if current_user != nil && post.downvoted_by_user(current_user.id) %>
-            <a type="button" class="btn btn-primary">v</a>
+            <a type="button" class="btn btn-primary text-light">v</a>
           <% else %>
-            <a type="button" class="btn btn-dark" href=<%= downvote_path({id: post.id}) %>>v</a>
+            <a type="button" class="btn btn-outline-dark text-dark" href=<%= downvote_path({id: post.id}) %>>v</a>
           <% end %>
         </div>
       </div>
@@ -36,17 +36,17 @@
         <% if post.followed_by_user(current_user.id) %>
           <a type="button" class="btn btn-primary text-light" href=<%= post_follow_path({id: post.id}) %>>Followed</a>
         <% else %>
-          <a type="button" class="btn btn-outline-dark" href=<%= post_follow_path({id: post.id}) %>>Follow</a>
+          <a type="button" class="btn btn-outline-dark text-dark" href=<%= post_follow_path({id: post.id}) %>>Follow</a>
         <% end %>
         <% if post.shared_by_user(current_user.id) %>
           <a type="button" class="btn btn-primary text-light" href=<%= post_share_path({id: post.id}) %>>Shared</a>
         <% else %>
-          <a type="button" class="btn btn-outline-dark" href=<%= post_share_path({id: post.id}) %>>Share</a>
+          <a type="button" class="btn btn-outline-dark text-dark" href=<%= post_share_path({id: post.id}) %>>Share</a>
         <% end %>
         <% if post.reported_by_user(current_user.id) %>
           <a type="button" class="btn btn-primary text-light">Reported</a>
         <% else %>
-          <a type="button" class="btn btn-outline-dark" href=<%= post_report_path({id: post.id}) %>>Report</a>
+          <a type="button" class="btn btn-outline-dark text-dark" href=<%= post_report_path({id: post.id}) %>>Report</a>
         <% end %>
       </div>
     </div>
