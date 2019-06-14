@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :post_reports, dependent: :destroy
   has_many :votes, dependent: :destroy
   before_validation :set_default_role
+  after_create :create_user_profile
   validates :username, :email, presence: true
   validates :username, uniqueness: true
   validates :password, presence: true, if: :should_validate?
@@ -44,6 +45,10 @@ class User < ApplicationRecord
   private
   def set_default_role
     self.role ||= Role.first
+  end
+
+  def create_user_profile
+    UserProfile.create(user_id: self.id)
   end
 
   def should_validate?

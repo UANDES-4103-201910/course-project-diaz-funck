@@ -12,6 +12,8 @@
             <% else %>
               <h3><%= user.username %></h3>
             <% end %>
+          <% else %>
+            <h3><%= user.username %></h3>
           <% end %>
           <h6><%= user.role.role_name %></h6>
         </div>
@@ -53,7 +55,7 @@
                   <% if user_signed_in? and user.user_profile.can_edit?(current_user.id) %>
                   <select name="location_id" form="profile-form">
                     <% Location.all.each do |location| %>
-                      <% if user.location.id == location.id %>
+                      <% if user.location != nil && user.id == location.id %>
                         <option form="profile-form" value=<%= location.id%> selected > <%= location.country%>, <%=location.region%> </option>
                       <% else %>
                         <option value=<%= location.id%>> <%= location.country%>, <%=location.region%> </option>
@@ -62,8 +64,8 @@
                   </select>
                     <input type="submit" value="Update" form="profile-form">
                   <% else %>
-                    <a href="#" class="list-group-item"> <%= user.location.region %></a>
-                    <a href="#" class="list-group-item"> <%= user.location.country %></a>
+                    <p class="list-group-item"> <%= user.location.region %></p>
+                    <p class="list-group-item"> <%= user.location.country %></p>
                   <% end %>
               </ul>
             </div>

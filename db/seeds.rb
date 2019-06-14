@@ -35,6 +35,8 @@ UserProfile.create( user_id: 6, picture_path: "path_to_the_picture_in_server", b
 Post.create( user_id: 1, location_id: 1, title: "title of post", description: "posts content", gps_coordinate: "coordenates", resolved: false, open: true )
 Post.create( user_id: 2, location_id: 1, title: "title of post", description: "posts content", gps_coordinate: "coordenates", resolved: false, open: false )
 Post.create( user_id: 3, location_id: 1, title: "title of post", description: "posts content", gps_coordinate: "coordenates", resolved: true, open: false )
+Post.create( user_id: 2, location_id: 1, title: "title of post2", description: "posts content", gps_coordinate: "coordenates", resolved: true, open: true )
+Post.create( user_id: 3, location_id: 1, title: "title of post2", description: "posts content", gps_coordinate: "coordenates", resolved: true, open: true )
 ## some comments
 Comment.create( user_id: 1, post_id: 1, parent_comment_id: nil, content: "comment content" )
 Comment.create( user_id: 1, post_id: 1, parent_comment_id: nil, content: "comment content" )

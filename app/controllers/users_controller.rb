@@ -30,6 +30,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    puts "HOLA"
     if !is_user_admin?
       redirect_to root_path
     end

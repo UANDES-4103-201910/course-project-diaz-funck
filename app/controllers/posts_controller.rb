@@ -33,7 +33,11 @@ class PostsController < ApplicationController
   def create
     create_params = post_params.except(:comment_id, :comments_disabled)
     @post = Post.new(create_params)
-    @post.open = !post_params[:comments_disabled]
+    if post_params[:comments_disabled] == '0'
+      @post.open = true
+    else
+      @post.open = false
+    end
 
     respond_to do |format|
       if @post.save
@@ -52,7 +56,11 @@ class PostsController < ApplicationController
     if current_user != nil && @post.can_edit?(current_user.id) && post_accessible?
       respond_to do |format|
         update_params = post_params.except(:comment_id, :comments_disabled)
-        update_params[:open] = !post_params[:comments_disabled]
+        if post_params[:comments_disabled] == '0'
+          @post.open = true
+        else
+          @post.open = false
+        end
         if @post.update(update_params)
           format.html { redirect_to @post, notice: 'Post was successfully updated.' }
           format.json { render :show, status: :ok, location: @post }
